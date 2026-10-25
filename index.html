@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#77d9f3">
+  <meta name="description" content="遊んで、ひらめいて、冒険しよう！まなびクエストは、小学生のための無料ゲームサイトです。">
+  <title>まなびクエスト｜遊んで、ひらめいて、冒険しよう！</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #243657;
+      --muted: #65748b;
+      --blue: #64c9ec;
+      --blue-dark: #338dbb;
+      --yellow: #ffda68;
+      --pink: #ff9ca7;
+      --green: #92dd9b;
+      --paper: #fffdf5;
+      --line: #314667;
+      --shadow: 0 5px 0 rgba(36, 54, 87, .17);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: #fff8df;
+      background-image: radial-gradient(#f1dfae 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    :focus-visible {
+      outline: 4px solid #ed7959;
+      outline-offset: 4px;
+    }
+
+    .page-shell {
+      width: min(100% - 28px, 1080px);
+      margin-inline: auto;
+    }
+
+    .topbar {
+      padding: 14px 0;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      font-weight: 950;
+      font-size: clamp(18px, 4vw, 24px);
+      letter-spacing: .04em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 39px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 3px solid var(--line);
+      border-radius: 12px;
+      background: var(--yellow);
+      box-shadow: 3px 3px 0 var(--line);
+      transform: rotate(-5deg);
+    }
+
+    .top-link {
+      padding: 9px 13px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 3px 0 rgba(36, 54, 87, .15);
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 20px;
+      min-height: 335px;
+      margin: 8px auto 26px;
+      padding: clamp(24px, 5vw, 50px);
+      border: 4px solid var(--line);
+      border-radius: 30px;
+      background: linear-gradient(135deg, #a8edfa 0%, #c8f6fa 55%, #e5fbda 100%);
+      box-shadow: 0 8px 0 rgba(36, 54, 87, .2);
+    }
+
+    .hero::before, .hero::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      border: 3px solid rgba(49, 70, 103, .12);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .34);
+    }
+
+    .hero::before { width: 190px; height: 190px; top: -80px; right: 22%; }
+    .hero::after { width: 250px; height: 250px; bottom: -175px; left: 24%; }
+
+    .hero-copy { position: relative; z-index: 1; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 10px;
+      padding: 6px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 7.3vw, 68px);
+      line-height: 1.13;
+      letter-spacing: .015em;
+      text-shadow: 3px 3px 0 white, 6px 6px 0 rgba(51, 141, 187, .2);
+    }
+
+    .hero-subtitle {
+      margin: 12px 0 0;
+      font-size: clamp(16px, 3vw, 22px);
+      font-weight: 850;
+    }
+
+    .hero-note {
+      margin: 12px 0 19px;
+      color: #485d78;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .primary-link, .play-link {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border: 3px solid var(--line);
+      border-radius: 16px;
+      background: var(--yellow);
+      box-shadow: 0 5px 0 var(--line);
+      color: var(--ink);
+      font-weight: 950;
+      text-align: center;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+    }
+
+    .primary-link:hover, .play-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--line);
+      filter: saturate(1.08);
+    }
+
+    .primary-link:active, .play-link:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--line);
+    }
+
+    .hero-world {
+      position: relative;
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+    }
+
+    .sun {
+      position: absolute;
+      top: 2px;
+      right: 11%;
+      display: grid;
+      width: 66px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 3px solid var(--line);
+      border-radius: 50%;
+      background: var(--yellow);
+      font-size: 31px;
+      animation: bob 3s ease-in-out infinite;
+    }
+
+    .cloud {
+      position: absolute;
+      top: 36px;
+      left: 7%;
+      font-size: 43px;
+      filter: drop-shadow(2px 3px 0 rgba(36, 54, 87, .16));
+      animation: drift 5s ease-in-out infinite;
+    }
+
+    .island {
+      position: absolute;
+      bottom: 6px;
+      width: min(100%, 355px);
+      height: 103px;
+      border: 4px solid var(--line);
+      border-radius: 50% 50% 44% 44%;
+      background: linear-gradient(#80d971 0 47%, #9c704e 48% 100%);
+      box-shadow: inset 0 9px 0 rgba(255, 255, 255, .32), 0 8px 0 rgba(36, 54, 87, .18);
+    }
+
+    .island::before, .island::after {
+      position: absolute;
+      top: 18px;
+      content: "✿";
+      color: #fff3a0;
+      font-size: 21px;
+    }
+    .island::before { left: 16%; }
+    .island::after { right: 17%; }
+
+    .castle {
+      position: absolute;
+      z-index: 1;
+      bottom: 49px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(63px, 10vw, 92px);
+      line-height: 1;
+      filter: drop-shadow(4px 5px 0 rgba(36, 54, 87, .18));
+    }
+
+    .adventurers {
+      position: absolute;
+      z-index: 2;
+      bottom: 17px;
+      left: 50%;
+      width: 210px;
+      display: flex;
+      justify-content: space-between;
+      transform: translateX(-50%);
+      font-size: 39px;
+      filter: drop-shadow(2px 3px 0 rgba(36, 54, 87, .22));
+      animation: bob 2.8s ease-in-out infinite;
+    }
+
+    .sparkle {
+      position: absolute;
+      color: #ff9e56;
+      font-size: 24px;
+      animation: twinkle 1.8s ease-in-out infinite;
+    }
+    .sparkle.one { top: 75px; right: 7%; }
+    .sparkle.two { top: 102px; left: 16%; animation-delay: .6s; }
+
+    .section {
+      margin: 0 auto 34px;
+      scroll-margin-top: 18px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(22px, 4.5vw, 30px);
+      line-height: 1.25;
+    }
+
+    .section-heading p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .heading-icon {
+      display: inline-grid;
+      width: 41px;
+      aspect-ratio: 1;
+      margin-right: 7px;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: var(--yellow);
+      vertical-align: middle;
+      transform: rotate(-5deg);
+    }
+
+    .grade-panel {
+      padding: 19px;
+      border: 3px solid var(--line);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .grade-button {
+      min-height: 62px;
+      border: 3px solid var(--line);
+      border-radius: 15px;
+      background: #f0f8ff;
+      box-shadow: 0 4px 0 rgba(36, 54, 87, .2);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 950;
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+      touch-action: manipulation;
+    }
+
+    .grade-button:hover { transform: translateY(-2px); background: #e2f4ff; }
+
+    .grade-button[aria-pressed="true"] {
+      transform: translateY(2px);
+      border-color: #8e4d24;
+      background: var(--yellow);
+      box-shadow: 0 2px 0 rgba(36, 54, 87, .2);
+    }
+
+    .grade-message {
+      min-height: 22px;
+      margin: 12px 2px 0;
+      color: #536982;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .game-card {
+      position: relative;
+      display: flex;
+      min-height: 258px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 17px;
+      overflow: hidden;
+      border: 3px solid var(--line);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 9px 0 rgba(36, 54, 87, .19);
+    }
+
+    .game-card::after {
+      position: absolute;
+      top: -22px;
+      right: -20px;
+      width: 95px;
+      height: 95px;
+      border: 2px solid rgba(36, 54, 87, .1);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .38);
+      content: "";
+    }
+
+    .game-card.playable:nth-child(1) { background: #fff4c9; }
+    .game-card.playable:nth-child(2) { background: #e3f6ff; }
+    .game-card.coming:nth-child(3) { background: #ffedf0; }
+    .game-card.coming:nth-child(4) { background: #e9f9e9; }
+    .game-card.coming:nth-child(5) { background: #f0eaff; }
+    .game-card.coming:nth-child(6) { background: #ffeeda; }
+
+    .game-icon {
+      display: grid;
+      width: 67px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 3px solid var(--line);
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 4px 0 rgba(36, 54, 87, .16);
+      font-size: 37px;
+      transform: rotate(-4deg);
+    }
+
+    .game-card h3 {
+      margin: 13px 0 5px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .game-card p {
+      margin: 0 0 14px;
+      color: #5c6d83;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.65;
+    }
+
+    .card-bottom { margin-top: auto; }
+
+    .play-link {
+      min-height: 43px;
+      padding: 8px 14px;
+      border-radius: 13px;
+      font-size: 14px;
+      box-shadow: 0 4px 0 var(--line);
+    }
+
+    .play-link:hover { box-shadow: 0 7px 0 var(--line); }
+
+    .status-pill {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 7px 12px;
+      border: 2px dashed #77849a;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .7);
+      color: #63728a;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .parent-panel {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      padding: clamp(20px, 4vw, 29px);
+      border: 3px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .parent-icon {
+      display: grid;
+      width: 57px;
+      height: 57px;
+      place-items: center;
+      border: 3px solid var(--line);
+      border-radius: 17px;
+      background: #e4f5ff;
+      font-size: 29px;
+    }
+
+    .parent-panel h2 { margin: 0 0 9px; font-size: 21px; }
+    .parent-panel p { margin: 0; color: #53657d; font-size: 14px; line-height: 1.9; }
+
+    .parent-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .parent-points span {
+      padding: 6px 10px;
+      border: 2px solid #d1deea;
+      border-radius: 999px;
+      background: #f5faff;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    footer {
+      padding: 18px 10px calc(22px + env(safe-area-inset-bottom));
+      color: #64738a;
+      font-size: 12px;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    @keyframes bob {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -7px; }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .45; transform: scale(.82) rotate(0); }
+      50% { opacity: 1; transform: scale(1.15) rotate(15deg); }
+    }
+
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; gap: 0; padding: 27px 23px 10px; }
+      .hero-world { min-height: 220px; }
+      .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 430px) {
+      .page-shell { width: min(100% - 20px, 1080px); }
+      .topbar { padding-top: max(10px, env(safe-area-inset-top)); }
+      .brand { gap: 7px; font-size: 17px; }
+      .brand-mark { width: 34px; border-radius: 10px; }
+      .top-link { padding: 8px 10px; font-size: 12px; }
+      .hero { min-height: 0; margin-top: 4px; border-radius: 23px; }
+      .hero-note { font-size: 13px; }
+      .hero-world { min-height: 190px; }
+      .island { height: 86px; }
+      .castle { bottom: 43px; }
+      .adventurers { bottom: 13px; }
+      .section { margin-bottom: 27px; }
+      .section-heading { align-items: flex-start; }
+      .section-heading p { font-size: 12px; }
+      .grade-panel { padding: 13px; }
+      .grade-grid { grid-template-columns: repeat(3, 1fr); gap: 9px; }
+      .grade-button { min-height: 54px; font-size: 16px; }
+      .game-grid { gap: 10px; }
+      .game-card { min-height: 242px; padding: 13px; border-radius: 18px; }
+      .game-card h3 { font-size: 16px; }
+      .game-card p { font-size: 12px; }
+      .game-icon { width: 59px; border-radius: 17px; font-size: 33px; }
+      .play-link { width: 100%; padding-inline: 8px; font-size: 13px; }
+      .parent-panel { grid-template-columns: 1fr; gap: 11px; }
+      .parent-panel h2 { font-size: 19px; }
+      .parent-panel p { font-size: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="page-shell topbar-inner">
+      <a class="brand" href="#" aria-label="まなびクエスト ホーム">
+        <span class="brand-mark" aria-hidden="true">🗺️</span>
+        <span>まなびクエスト</span>
+      </a>
+      <a class="top-link" href="#games">ゲームであそぶ　↓</a>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">🎒 しょうがくせいの ぼうけんひろば</p>
+        <h1 id="hero-title">まなび<br>クエスト</h1>
+        <p class="hero-subtitle">遊んで、ひらめいて、冒険しよう！</p>
+        <p class="hero-note">ふしぎな世界を探検しながら、<br>ゲームの中の「なんで？」を見つけよう。</p>
+        <a class="primary-link" href="#games">冒険に出発！ <span aria-hidden="true">⚔️</span></a>
+      </div>
+      <div class="hero-world" aria-hidden="true">
+        <span class="sun">☀️</span>
+        <span class="cloud">☁️</span>
+        <span class="sparkle one">✦</span>
+        <span class="sparkle two">✧</span>
+        <div class="island"></div>
+        <span class="castle">🏰</span>
+        <div class="adventurers"><span>🧙</span><span>🧑‍🚀</span><span>🐥</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="grade-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="grade-title"><span class="heading-icon" aria-hidden="true">🎓</span>何年生かな？</h2>
+          <p>学年をえらんでね。ボタンの選択表示がかわるよ。</p>
+        </div>
+      </div>
+      <div class="grade-panel">
+        <div class="grade-grid" role="group" aria-label="学年を選択">
+          <button class="grade-button" type="button" aria-pressed="false">1年生</button>
+          <button class="grade-button" type="button" aria-pressed="false">2年生</button>
+          <button class="grade-button" type="button" aria-pressed="false">3年生</button>
+          <button class="grade-button" type="button" aria-pressed="false">4年生</button>
+          <button class="grade-button" type="button" aria-pressed="false">5年生</button>
+          <button class="grade-button" type="button" aria-pressed="false">6年生</button>
+        </div>
+        <p class="grade-message" id="grade-message" aria-live="polite">学年をえらぶと、選択中のボタンが光るよ！ゲームの内容は変わりません。</p>
+      </div>
+    </section>
+
+    <section class="section" id="games" aria-labelledby="games-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="games-title"><span class="heading-icon" aria-hidden="true">🕹️</span>ゲームひろば</h2>
+          <p>あそびたいゲームをえらぼう！</p>
+        </div>
+      </div>
+      <div class="game-grid">
+        <article class="game-card playable">
+          <span class="game-icon" aria-hidden="true">⚔️</span>
+          <h3>ことば勇者の冒険</h3>
+          <p>ことばのクイズに挑戦！勇者といっしょに王国を冒険しよう。</p>
+          <div class="card-bottom"><a class="play-link" href="kotoba_yuusha_rpg.html">あそぶ <span aria-hidden="true">▶</span></a></div>
+        </article>
+        <article class="game-card playable">
+          <span class="game-icon" aria-hidden="true">🗺️</span>
+          <h3>ことば勇者の冒険 2</h3>
+          <p>マップを歩いて、村や森を探検！ことばのひらめきで道をひらこう。</p>
+          <div class="card-bottom"><a class="play-link" href="kotoba_yuusha_rpg_2.html">あそぶ <span aria-hidden="true">▶</span></a></div>
+        </article>
+        <article class="game-card coming" aria-label="漢字忍者、じゅんび中">
+          <span class="game-icon" aria-hidden="true">🥷</span>
+          <h3>漢字忍者</h3>
+          <p>漢字の世界にしゅぎょうの旅へ！</p>
+          <div class="card-bottom"><span class="status-pill">🔧 じゅんび中</span></div>
+        </article>
+        <article class="game-card coming" aria-label="計算タワー、じゅんび中">
+          <span class="game-icon" aria-hidden="true">🧮</span>
+          <h3>計算タワー</h3>
+          <p>ひらめき算数で、タワーのてっぺんをめざそう。</p>
+          <div class="card-bottom"><span class="status-pill">🔧 じゅんび中</span></div>
+        </article>
+        <article class="game-card coming" aria-label="なぞとき迷宮、じゅんび中">
+          <span class="game-icon" aria-hidden="true">🔎</span>
+          <h3>なぞとき迷宮</h3>
+          <p>手がかりを見つけて、ふしぎな迷宮を進もう。</p>
+          <div class="card-bottom"><span class="status-pill">🔧 じゅんび中</span></div>
+        </article>
+        <article class="game-card coming" aria-label="ペットずかん、じゅんび中">
+          <span class="game-icon" aria-hidden="true">🐾</span>
+          <h3>ペットずかん</h3>
+          <p>かわいい仲間たちのひみつを見つけよう。</p>
+          <div class="card-bottom"><span class="status-pill">🔧 じゅんび中</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="parents-title">
+      <div class="parent-panel">
+        <div class="parent-icon" aria-hidden="true">🌱</div>
+        <div>
+          <h2 id="parents-title">保護者のみなさまへ</h2>
+          <p>まなびクエストは、冒険や探索、なぞ解きの楽しさを大切にした無料のゲームサイトです。遊びの中で「どうしてだろう？」と考えたり、ことばにふれたりする時間をお届けします。学年選択は表示のみで、ゲームの内容は切り替わりません。お子さまのペースに合わせて、適度に休憩をとりながらお楽しみください。</p>
+          <div class="parent-points" aria-label="大切にしていること">
+            <span>🧭 探索する</span>
+            <span>💡 考える</span>
+            <span>📚 学びにふれる</span>
+            <span>☕ 休憩もたいせつに</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-shell">
+    <p>まなびクエスト　｜　遊んで、ひらめいて、冒険しよう！</p>
+  </footer>
+
+  <script>
+    (() => {
+      const gradeButtons = document.querySelectorAll(".grade-button");
+      const gradeMessage = document.getElementById("grade-message");
+
+      gradeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          gradeButtons.forEach((item) => item.setAttribute("aria-pressed", "false"));
+          button.setAttribute("aria-pressed", "true");
+          gradeMessage.textContent = `${button.textContent}をえらんだよ！ゲームの内容は変わりません。`;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
