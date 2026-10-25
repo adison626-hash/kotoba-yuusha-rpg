@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#172b45">
+<title>ことばの勇者と まほうの王国</title>
+<style>
+:root{--ink:#172b45;--panel:#f8f0d5;--edge:#172b45;--gold:#ffd166;--green:#55b76a;--red:#e66b64}
+*{box-sizing:border-box}body{margin:0;background:#15243a;color:#fff;font-family:"Courier New","MS Gothic",monospace;image-rendering:pixelated}
+button{font:inherit;cursor:pointer;color:var(--ink);background:#f8f0d5;border:3px solid var(--edge);box-shadow:inset -3px -3px #c8bd9e,3px 3px #0b1525;padding:10px;min-height:44px}
+button:active{transform:translate(2px,2px);box-shadow:none}button:disabled{opacity:.55;cursor:default}
+.wrap{max-width:920px;margin:auto;padding:12px}.title{font-size:clamp(20px,4vw,32px);text-align:center;color:var(--gold);text-shadow:3px 3px #000;margin:10px 0}
+.sub{text-align:center;font-size:12px;margin-bottom:12px;color:#c7d8ec}
+.frame{border:4px solid #d8c99e;background:var(--panel);color:var(--ink);box-shadow:0 0 0 4px #0a1524;margin:12px 0;padding:12px}
+.world{background:#4e9b54;border:4px solid #253e31;position:relative;min-height:210px;overflow:hidden;padding:12px}
+.sky{height:30px;background:#72c5ed;margin:-12px -12px 0}
+.map{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;max-width:470px;margin:12px auto;position:relative}
+.tile{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(15px,4vw,28px);background:#6ab85f;border:2px solid #4b9146}
+.tile.path{background:#c7a56b;border-color:#a7834c}.tile.water{background:#54a8d8;border-color:#347fb2}.tile.tree{background:#39894d;border-color:#286d3a}
+.tile.hero{background:#ffe28a;border-color:#b58b35}.tile.goal{background:#c8b5ef;border-color:#8573b2}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.meter{background:#fff;border:2px solid #81775e;padding:7px;font-size:12px}
+.bar{height:9px;background:#d4d4d4;margin-top:4px}.bar span{display:block;height:100%;background:#55b76a;width:100%}
+.screen{display:none}.screen.active{display:block}.dialog{background:#fff;border:3px solid #172b45;padding:12px;line-height:1.65;min-height:62px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.opt{text-align:left;background:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
+.tag{display:inline-block;padding:4px 7px;background:#172b45;color:#fff;font-size:12px;margin:2px}
+.hpbar{height:12px;background:#b7b7b7;border:2px solid #172b45}.hpbar span{display:block;height:100%;background:#d9534f}
+.battlefield{background:#b6e3f7;border:3px solid #172b45;padding:10px;display:flex;justify-content:space-around;align-items:end;min-height:125px}
+.sprite{font-size:clamp(38px,9vw,70px);filter:drop-shadow(3px 3px #61707b)}
+.log{max-height:105px;overflow:auto;font-size:12px;line-height:1.6;background:#e8dfc3;padding:8px;margin-top:8px}
+.small{font-size:11px;color:#4e5c70;line-height:1.6}
+@media(max-width:520px){.wrap{padding:8px}.frame{padding:9px}.status{grid-template-columns:1fr 1fr}.options{grid-template-columns:1fr}.world{min-height:180px}.map{gap:2px}.tile{border-width:1px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <h1 class="title">⚔ ことばの勇者と まほうの王国 ⚔</h1>
+ <div class="sub">小学４年生の 国語RPG｜クイズで たたかい、王国を すくおう！</div>
+ <div class="frame">
+  <div class="status">
+   <div class="meter">ゆうしゃ Lv.<b id="lv">1</b><div class="bar"><span id="xpbar"></span></div><small>EXP <b id="xp">0</b>/<b id="xpn">30</b></small></div>
+   <div class="meter">❤️ HP <b id="hp">30</b>/<b id="maxhp">30</b><div class="bar"><span id="hpbar"></span></div></div>
+   <div class="meter">🪙 ゴールド <b id="gold">0</b></div>
+   <div class="meter">💎 ことばのかけら <b id="shards">0</b>/4</div>
+  </div>
+ </div>
+ <section class="screen active" id="start">
+  <div class="frame">
+   <div style="text-align:center;font-size:48px">🏰　🧙🏻‍♂️　🐉</div>
+   <h2>ぼうけんの はじまり</h2>
+   <p>まおうが「ことばのかけら」を うばってしまった！ ４つのエリアを ぼうけんして、国語の力で 王国を すくおう。</p>
+   <ul><li>正解すると ゆうしゃの攻撃！</li><li>まちがえても 解説で学べるよ。</li><li>村で HPを回復して、ボスに挑戦しよう。</li></ul>
+   <button style="width:100%;background:#ffd166" onclick="begin()">▶ ぼうけんを はじめる</button>
+  </div>
+ </section>
+ <section class="screen" id="explore">
+  <div class="frame">
+   <h2 id="areaTitle">🌳 はじまりの森</h2>
+   <div class="world"><div class="sky"></div><div class="map" id="map"></div></div>
+   <div class="dialog" id="areaText">森のモンスターが あらわれた！</div>
+   <div class="row" style="margin-top:10px"><button onclick="startBattle()">⚔ モンスターと たたかう</button><button onclick="rest()">🏠 やどやで休む（5G）</button></div>
+   <div class="row" style="margin-top:8px"><button onclick="moveArea(-1)">◀ 前のエリア</button><button onclick="moveArea(1)">次のエリア ▶</button></div>
+  </div>
+ </section>
+ <section class="screen" id="battle">
+  <div class="frame">
+   <div class="row"><span class="tag" id="battleTag">森のスライム</span><span class="tag" id="category">漢字</span></div>
+   <div class="battlefield"><div style="text-align:center"><div class="sprite">🧑🏻‍⚔️</div><b>ゆうしゃ</b><div class="hpbar"><span id="playerBattleHp" style="width:100%"></span></div></div><div style="text-align:center"><div class="sprite" id="enemySprite">🟢</div><b id="enemyName">スライム</b><div class="hpbar"><span id="enemyHpBar" style="width:100%;background:#d9534f"></span></div><small id="enemyHpText">HP 20/20</small></div></div>
+   <h3 id="qtext">もんだい</h3>
+   <div class="options" id="answers"></div>
+   <div class="dialog" id="feedback" aria-live="polite">答えを えらんでね！</div>
+   <div class="row" style="margin-top:10px"><button id="hintBtn" onclick="hint()">💡 ヒント</button><button id="continueBtn" onclick="continueBattle()" disabled>つぎへ ▶</button></div>
+  </div>
+ </section>
+ <section class="screen" id="ending">
+  <div class="frame" style="text-align:center"><div style="font-size:60px">🏆👑🏰</div><h2>おめでとう！ 王国を すくった！</h2><p>国語の力で まおうを たおした！ きみは ほんものの ことばの勇者だ！</p><p id="finalStats"></p><button onclick="resetGame()">もう一度 あそぶ</button></div>
+ </section>
+ <div class="frame"><b>📜 ぼうけんの記録</b><div class="log" id="log">王国からの おねがいを うけとった。</div><p class="small">※このゲームはブラウザ内で動く試作品です。進行状況はページを閉じるとリセットされます。</p><button onclick="resetGame()">最初から</button></div>
+</div>
+<script>
+const bank=[
+{cat:"漢字",q:"「希望」の読み方は どれ？",a:["きぼう","きほう","きもう","きぼ"],c:0,h:"こうなってほしい、と願うことだよ。",e:"「希望」は「きぼう」と読むよ。"},
+{cat:"漢字",q:"「努力」の読み方は どれ？",a:["どりょく","とうりょく","どりき","どうりょく"],c:0,h:"目標のために がんばること。",e:"「努力」は「どりょく」と読むよ。"},
+{cat:"漢字",q:"「健康」の読み方は どれ？",a:["けんこう","けんごう","げんこう","けんこ"],c:0,h:"体や心が元気なこと。",e:"「健康」は「けんこう」と読むよ。"},
+{cat:"漢字",q:"「成功」の反対に近い言葉は？",a:["失敗","成長","勝利","完成"],c:0,h:"うまくいかなかったときに使う言葉。",e:"成功の反対に近い言葉は「失敗」。"},
+{cat:"四字熟語・ことわざ",q:"「石の上にも三年」の意味は？",a:["石を三つ集める","がまん強く続ければ成果が出る","三年で石になる","早くあきらめる"],c:1,h:"つらくても、すぐにやめないこと。",e:"がまん強く続けることの大切さを表すことわざ。"},
+{cat:"四字熟語・ことわざ",q:"「一石二鳥」の意味は？",a:["一つのことで二つのよいこと","鳥を二羽飼う","石を投げる","一度に二回失敗する"],c:0,h:"一つのことから、二つの利益。",e:"一つの行動で二つのよい結果を得ること。"},
+{cat:"四字熟語・ことわざ",q:"「七転び八起き」が伝えることは？",a:["七回休む","転んだら終わり","何度失敗しても立ち上がる","八人で遊ぶ"],c:2,h:"失敗しても、もう一度がんばる。",e:"何度失敗しても、くじけずに立ち上がること。"},
+{cat:"四字熟語・ことわざ",q:"「十人十色」の意味は？",a:["十人は同じ考え","人それぞれ考えや好みがちがう","十色の絵の具","十人で色をぬる"],c:1,h:"みんな同じではない、ということ。",e:"人によって考え方や好みがちがうこと。"},
+{cat:"主語・述語",q:"「犬が公園を走る。」主語はどれ？",a:["犬が","公園を","走る","公園"],c:0,h:"「だれが・何が」にあたる言葉。",e:"主語は「犬が」。"},
+{cat:"主語・述語",q:"「花がきれいに咲いた。」述語はどれ？",a:["花が","きれいに","咲いた","花"],c:2,h:"「どうした」にあたる言葉を探そう。",e:"述語は「咲いた」。"},
+{cat:"主語・述語",q:"「弟は本を読んでいる。」述語はどれ？",a:["弟は","本を","読んでいる","弟"],c:2,h:"弟がどうしているのかな？",e:"述語は「読んでいる」。"},
+{cat:"主語・述語",q:"「大きな鳥が空を飛ぶ。」主語はどれ？",a:["大きな","鳥が","空を","飛ぶ"],c:1,h:"何が飛んでいるのかな？",e:"主語は「鳥が」。"},
+{cat:"文章読解",q:"【文】雨がふっていたので、ユキはかさを持って出かけた。ユキがかさを持った理由は？",a:["晴れていたから","雨がふっていたから","かさを買うため","友だちに会うため"],c:1,h:"文のはじめに理由が書いてあるよ。",e:"雨がふっていたことが理由だよ。"},
+{cat:"文章読解",q:"【文】タロウは毎朝、花に水をやった。一週間後、つぼみが開いた。何を続けた結果、花が咲いたのかな？",a:["水をやること","花をぬくこと","走ること","本を読むこと"],c:0,h:"タロウが毎朝していたことを探そう。",e:"毎朝水をやったことが書かれているよ。"},
+{cat:"文章読解",q:"【文】ミホは本を三冊借りた。一冊は物語、二冊は図かんだった。図かんは何冊？",a:["一冊","二冊","三冊","四冊"],c:1,h:"文の中に数字が書いてあるよ。",e:"図かんは二冊だよ。"},
+{cat:"文章読解",q:"【文】風が強くなり、木の葉が道にたくさん落ちた。木の葉が落ちた理由として最も合うのは？",a:["風が強くなったから","雪が降ったから","夜になったから","花が咲いたから"],c:0,h:"最初に起きたことを読もう。",e:"風が強くなったことが理由として書かれているよ。"}
+];
+const areas=[
+{name:"🌳 はじまりの森",enemy:"森のスライム",sprite:"🟢",desc:"草むらから スライムが とびだした！",cat:"漢字"},
+{name:"🌉 ことわざの橋",enemy:"ことわざゴブリン",sprite:"👺",desc:"橋を守るゴブリンが なぞなぞを出してきた！",cat:"四字熟語・ことわざ"},
+{name:"📚 ことばの図書館",enemy:"本のミミック",sprite:"📕",desc:"本のミミックが 大切な文をかくしている！",cat:"主語・述語"},
+{name:"🐉 まおうの城",enemy:"ことばの魔王",sprite:"🐉",desc:"最後の敵、ことばの魔王が あらわれた！",cat:"文章読解"}
+];
+let s;
+function fresh(){s={lv:1,xp:0,hp:30,maxhp:30,gold:0,shards:0,area:0,won:0,q:null,enemyHp:20,enemyMax:20,answered:false,hinted:false,seen:[]};}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function begin(){fresh();update();renderMap();show('explore');say(areas[0].desc);}
+function say(t){document.getElementById('areaText').textContent=t;}
+function update(){['lv','xp','hp','maxhp','gold','shards'].forEach(k=>document.getElementById(k).textContent=s[k]);document.getElementById('xpn').textContent=s.lv*30;document.getElementById('xpbar').style.width=Math.min(100,s.xp/(s.lv*30)*100)+'%';document.getElementById('hpbar').style.width=Math.max(0,s.hp/s.maxhp*100)+'%';}
+function renderMap(){let map=document.getElementById('map');map.innerHTML='';let cells=['🌲','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🟫','🟫','🟫','🟫','🟫','🟫','🟫','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🟫','🌿','🌲','🌿','🌲','🌿','🟫','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🌲','🌿','🌲'];cells.forEach((c,i)=>{let d=document.createElement('div');d.className='tile '+(c==='🟫'?'path':c==='🌲'?'tree':'');d.textContent=c;map.appendChild(d)});let idx=[13,22,31,40][s.area];map.children[idx].classList.add('hero');map.children[idx].textContent='🧑🏻‍⚔️';map.children[44].classList.add('goal');map.children[44].textContent='🏰';document.getElementById('areaTitle').textContent=areas[s.area].name;}
+function moveArea(d){let n=s.area+d;if(n<0){say('ここが ぼうけんの はじまりだよ。');return;}if(n>=4){say('この先には まおうがいる！ まずは今のエリアを クリアしよう。');return;}if(n>s.shards){say('先へ進むには、今のエリアで ことばのかけらを手に入れよう！');return;}s.area=n;renderMap();say(areas[n].desc);}
+function rest(){if(s.gold<5){say('やどやは 5ゴールドだよ。モンスターに勝って お金をためよう！');return;}s.gold-=5;s.hp=s.maxhp;update();say('ぐっすり休んで HPが全回復した！');}
+function startBattle(){let a=areas[s.area];let qs=bank.map((q,i)=>({...q,idx:i})).filter(q=>q.cat===a.cat&&!s.seen.includes(q.idx));if(!qs.length){qs=bank.map((q,i)=>({...q,idx:i})).filter(q=>q.cat===a.cat);s.seen=s.seen.filter(i=>!qs.some(q=>q.idx===i));}let q=qs[Math.floor(Math.random()*qs.length)];s.q=q;s.seen.push(q.idx);s.enemyMax=20+s.area*8;s.enemyHp=s.enemyMax;s.answered=false;s.hinted=false;document.getElementById('battleTag').textContent=a.enemy;document.getElementById('enemySprite').textContent=a.sprite;document.getElementById('enemyName').textContent=a.enemy;document.getElementById('category').textContent=q.cat;document.getElementById('qtext').textContent='【もんだい】'+q.q;document.getElementById('feedback').textContent='答えを えらんでね！';document.getElementById('continueBtn').disabled=true;document.getElementById('hintBtn').disabled=false;let box=document.getElementById('answers');box.innerHTML='';q.a.forEach((a,i)=>{let b=document.createElement('button');b.className='opt';b.textContent=['A. ','B. ','C. ','D. '][i]+a;b.onclick=()=>answer(i,b);box.appendChild(b)});show('battle');battleBars();}
+function battleBars(){document.getElementById('playerBattleHp').style.width=Math.max(0,s.hp/s.maxhp*100)+'%';document.getElementById('enemyHpBar').style.width=Math.max(0,s.enemyHp/s.enemyMax*100)+'%';document.getElementById('enemyHpText').textContent='HP '+s.enemyHp+'/'+s.enemyMax;}
+function answer(i,b){if(s.answered)return;s.answered=true;let bs=[...document.querySelectorAll('.opt')];bs.forEach((x,j)=>{x.disabled=true;if(j===s.q.c)x.style.background='#b8efbd';});let f=document.getElementById('feedback');if(i===s.q.c){s.enemyHp=0;s.xp+=15;s.gold+=5;f.textContent='✨ 正解！ ゆうしゃの攻撃！ '+s.q.e;document.getElementById('log').innerHTML='正解！ '+s.q.cat+'の力で敵に勝った！<br>'+document.getElementById('log').innerHTML;if(s.xp>=s.lv*30){s.xp-=s.lv*30;s.lv++;s.maxhp+=5;s.hp=s.maxhp;f.textContent+=' レベルアップ！ HPも全回復！';}if(!s.shardsCollected){s.shardsCollected=true;}s.shards=Math.min(4,s.shards+1);s.won++;}else{s.hp=Math.max(0,s.hp-5);f.textContent='おしい！ 敵の攻撃！ HPが5へった。 '+s.q.e;document.getElementById('log').innerHTML='復習：「'+s.q.q+'」 '+s.q.e+'<br>'+document.getElementById('log').innerHTML;}update();battleBars();document.getElementById('continueBtn').disabled=false;document.getElementById('hintBtn').disabled=true;}
+function hint(){if(!s.q||s.hinted)return;s.hinted=true;document.getElementById('feedback').textContent='💡 ヒント：'+s.q.h;}
+function continueBattle(){if(s.enemyHp<=0){if(s.area===3&&s.shards>=4){show('ending');document.getElementById('finalStats').textContent='レベル '+s.lv+' ｜ 正解して集めたかけら '+s.shards+' ｜ ゴールド '+s.gold;return;}if(s.area<3){say('勝利！ ことばのかけらを手に入れた！ 次のエリアへ進めるよ。');}else{say('魔王に勝った！ もう少しで王国が救われる！');}show('explore');renderMap();}else{if(s.hp===0){s.hp=Math.max(10,Math.floor(s.maxhp/2));say('村の人が助けてくれた！ HPが少し回復した。');update();}show('explore');say('もう一度 挑戦してみよう！ ヒントも使えるよ。');}}
+function resetGame(){fresh();update();show('start');document.getElementById('log').textContent='王国からの おねがいを うけとった。';}
+fresh();update();
+</script>
+</body>
+</html>
