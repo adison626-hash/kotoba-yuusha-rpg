@@ -1620,6 +1620,7 @@
         showAdventureBattle("attack","ちえの チャレンジ！ はやく せいかいすると、つよい こうげき！");updateAdventureTimer(performance.now());
       }
       function updateAdventureTimer(now) {
+        if(document.visibilityState==="hidden")return;
         const b=adventureBattle;if(!b||!["attack","defend"].includes(b.phase))return;
         const remaining=Math.max(0,b.deadline-now),limit=b.limitMs||15000,label=`${(remaining/1000).toFixed(1)} びょう`;
         if(label!==adventureLastTimerText){document.getElementById("battle-seconds").textContent=label;adventureLastTimerText=label;}
@@ -3056,6 +3057,20 @@
 
       adventureCanvas.addEventListener("click",handleAdventurePointer);
       document.getElementById("adventure-fullscreen").addEventListener("click",async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await app.requestFullscreen();}catch(error){adventureNotice("ゲームは がめんいっぱいに ひろがっているよ。");}});
+      // Keep a timed question fair when a phone switches apps or hides this tab.
+      let grade4PausedBattle=null;
+      document.addEventListener("visibilitychange",()=>{
+        const battle=adventureBattle;
+        if(document.visibilityState==="hidden"){
+          if(!grade4PausedBattle&&battle&&["attack","defend"].includes(battle.phase))grade4PausedBattle={battle,question:battle.question,phase:battle.phase,at:performance.now()};
+          return;
+        }
+        if(grade4PausedBattle){
+          const paused=grade4PausedBattle;grade4PausedBattle=null;
+          if(battle===paused.battle&&battle.question===paused.question&&battle.phase===paused.phase)battle.deadline+=Math.max(0,performance.now()-paused.at);
+        }
+      });
+
       loadProgress();
       document.getElementById("hud-location").textContent = player.x >= 25 ? "🌲 ふしぎな森" : "🌈 にじいろ村";
       updateDpi();
