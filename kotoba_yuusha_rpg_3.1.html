@@ -230,6 +230,10 @@
     .jr-soko {grid-template-columns:repeat(7,minmax(0,1fr));width:min(100%,350px);gap:0;border:3px solid #596c65;}.jr-soko button {min-height:0;aspect-ratio:1;border-radius:0;border:1px solid #bbbea5;padding:0;font-size:23px;background:#e9e2c4;}.jr-soko button.wall {background:#71857d;border:2px solid #536a61;}.jr-soko button.goal {background:#ffe29b;}
     #jr-mini-canvas {position:relative;inset:auto;display:block;width:100%;height:auto;aspect-ratio:2.2;max-height:300px;touch-action:none;border:3px solid #6b8264;border-radius:12px;background:#c9e3aa;image-rendering:auto;}
     .jr-soko .jr-mini-hero {position:relative;inset:auto;width:100%;height:100%;object-fit:contain;image-rendering:auto;}.jr-box {display:grid;place-items:center;width:80%;height:80%;margin:auto;border:2px solid #8e5f39;border-radius:4px;background:#d9a45f;color:#795133;box-shadow:inset 0 0 0 2px #f4d191;}
+    .jr-soko .soko-hint {outline:3px solid #d09a36;outline-offset:-4px;animation:jr-soko-hint .65s ease-out;}
+    @keyframes jr-soko-hint {40%{background:#fff0a9;box-shadow:inset 0 0 0 5px #ffe18b;}}
+    @media(prefers-reduced-motion:reduce){.jr-soko .soko-hint{animation:none;}}
+    @media(max-height:500px) and (orientation:landscape){.jr-panel:has(.jr-soko){display:grid;grid-template-columns:1fr 1.2fr;gap:5px 18px;align-items:start;}.jr-panel:has(.jr-soko) .jr-panel-head{grid-column:1 / -1;}.jr-panel:has(.jr-soko) #jr-content{grid-column:1;grid-row:2 / 5;margin:3px auto;}.jr-panel:has(.jr-soko) #jr-instruction{grid-column:2;grid-row:2;}.jr-panel:has(.jr-soko) #jr-status{grid-column:2;grid-row:3;}.jr-panel:has(.jr-soko) #jr-tools{grid-column:2;grid-row:4;align-self:start;margin-top:0;}}
     .jr-ending {position:absolute;z-index:4;inset:0;display:grid;place-items:center;overflow:auto;padding:20px;background:linear-gradient(#c0e5e1,#b5d990);}.jr-ending>div {padding:35px;border:4px solid #344967;border-radius:25px;background:#fff9e9f0;text-align:center;max-width:750px;}.jr-ending h2 {font-size:clamp(25px,4vw,40px);}.jr-ending p {font-weight:850;line-height:1.9;}
     @media(max-width:540px) {.jr-hud {top:8px;left:8px;right:8px;gap:5px;}.jr-hud>div {padding:7px 9px;max-width:67%;border-width:2px;}.jr-hud strong {font-size:16px;}.jr-hud span {font-size:10px;}.jr-hud nav {flex-direction:column;gap:4px;}.jr-hud nav button {font-size:11px;padding:6px;min-height:38px;}.jr-panel {padding:12px;}.jr-panel h2 {font-size:19px;}.jr-panel p {font-size:12px;}.jr-layer button {padding:7px;font-size:12px;}.jr-controls>div {gap:4px;}.jr-controls>div:last-child {max-width:230px;}.jr-controls button {min-width:48px;min-height:49px;padding:5px;}.jr-controls {left:8px;right:8px;gap:6px;}.jr-controls>div:first-child button {min-width:43px;}.jr-layer.side .jr-notice {bottom:135px;font-size:12px;}.jr-shop-grid {grid-template-columns:1fr;}.jr-memory button {height:75px;}.jr-notice {font-size:12px;}.jr-simon button {height:90px;}}
     @media(max-height:500px) and (orientation:landscape) {.jr-hud>div {padding:5px 8px;}.jr-hud strong {font-size:16px;}.jr-hud small {display:none;}.jr-hud span {font-size:10px;}.jr-panel {padding:10px 16px;}.jr-panel h2 {font-size:19px;}.jr-panel p {margin:4px 0;}.jr-panel-head button {min-height:36px;}.jr-notice {font-size:11px;max-width:65%;}.jr-layer.side .jr-notice {bottom:80px;}.jr-controls button {min-height:48px;}.jr-memory button {height:65px;}.jr-soko {max-width:230px;}.jr-lights button {height:55px;}.jr-simon button {height:65px;}}
@@ -2049,7 +2053,7 @@
       function jrStartMission(id){
         const mission=jrMissions[id];if(!mission)return;jrMode=id;jrRun={id,finished:false,start:performance.now()};jrModalOpen(`${mission.npc}：${mission.name}`,`はじめて ${mission.first[0]} G / ${mission.first[1]} EXP。２かいめからも ${mission.repeat[0]} G / ${mission.repeat[1]} EXP！`);document.getElementById("jr-content").className="";
         if(id==="shoot"){jrRun.score=0;jrRun.targets=Array.from({length:6},(_,i)=>({value:i+1,x:65+i*102,y:90+(i%2)*95,phase:i}));jrShootQuestion();const canvas=document.createElement("canvas");canvas.id="jr-mini-canvas";canvas.width=660;canvas.height=300;canvas.setAttribute("aria-label","こたえの すうじを タッチして まとあて");canvas.addEventListener("click",jrShootPointer);document.getElementById("jr-content").append(canvas);document.getElementById("jr-instruction").textContent="30びょうで ７かい、こたえの すうじを タッチしよう！";}
-        if(id==="soko"){jrRun.hero={x:2,y:4};jrRun.box={x:3,y:3};jrRun.history=[];document.getElementById("jr-instruction").textContent="はこを おして ★へ！ 人の となりの マスか、やじるしを タッチしよう。";jrDrawSoko();for(const [label,dir]of[["↑","up"],["←","left"],["↓","down"],["→","right"]])jrTool(label,()=>jrSokoMove(dir));jrTool("ひとつ もどす",()=>{if(jrRun&&!jrRun.finished&&jrRun.history.length){const s=jrRun.history.pop();jrRun.hero=s.hero;jrRun.box=s.box;jrDrawSoko();}});}
+        if(id==="soko"){const level=jrSokoLevel(journeyState.quests.soko);jrRun.hero={...level.hero};jrRun.box={...level.box};jrRun.goal={...level.goal};jrRun.blocks=level.blocks.map(p=>({...p}));jrRun.variant=level.variant;jrRun.history=[];jrRun.moves=0;document.getElementById("jr-instruction").textContent=`へや ${level.variant+1}/4：${level.name}。はこを おして ★へ！ クリアすると つぎの へやに なるよ。`;jrDrawSoko();for(const [label,dir]of[["↑","up"],["←","left"],["↓","down"],["→","right"]])jrTool(label,()=>jrSokoMove(dir));jrTool("ひとつ もどす",()=>{if(jrRun&&!jrRun.finished&&jrRun.history.length){const state=jrRun.history.pop();jrRun.hero=state.hero;jrRun.box=state.box;jrRun.moves=state.moves;jrRun.hint=null;jrDrawSoko();}});jrTool("ヒント",jrSokoHint);}
         if(id==="memory"){const ids=["dog","flower","moon","stone","bamboo","river"];jrRun.cards=shuffleAdventure([...ids,...ids]);jrRun.flips=[];jrRun.matched=[];jrRun.turns=0;document.getElementById("jr-instruction").textContent="おなじ しゃしんを ２まいずつ みつけよう。６ペアで クリア！";jrDrawMemory();}
         if(id==="simon"){jrRun.pattern=Array.from({length:3},()=>Math.floor(Math.random()*4));jrRun.round=1;jrRun.index=0;jrRun.showAt=performance.now()+500;jrRun.showing=true;jrRun.lastFlash=-2;document.getElementById("jr-instruction").textContent="ひかる じゅんばんを おぼえて、まねしよう！ ３ラウンドで クリア。";const grid=document.createElement("div");grid.className="jr-grid jr-simon";["あか","あお","きいろ","みどり"].forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.textContent=name;b.style.background=["#e58c8b","#83bed9","#f2d77d","#93c47d"][i];b.addEventListener("click",()=>jrSimonPress(i));grid.append(b);});document.getElementById("jr-content").append(grid);}
         if(id==="lights"){jrRun.lights=Array(9).fill(true);do{jrRun.lights.fill(true);for(let i=0;i<6;i++)jrToggleLights(Math.floor(Math.random()*9));}while(jrRun.lights.every(Boolean));document.getElementById("jr-instruction").textContent="タッチした マスと となりの あかりが かわるよ。９つ ぜんぶ つけよう！";jrDrawLights();jrTool("ヒント",()=>{const move=jrLightsHint(jrRun?.lights);document.getElementById("jr-status").textContent=move<0?"ぜんぶ ついたよ！":`${Math.floor(move/3)+1}だんめ、${move%3+1}れつめを ためしてみよう。`;});}
@@ -2059,10 +2063,6 @@
       function jrShootQuestion(){if(!jrRun)return;const answer=1+Math.floor(Math.random()*6),a=Math.floor(Math.random()*(answer+1));jrRun.answer=answer;jrRun.prompt=`${a} ＋ ${answer-a} = ？`;}
 
       function jrShootPointer(event){if(!jrRun||jrRun.id!=="shoot"||jrRun.finished)return;const canvas=event.currentTarget,b=canvas.getBoundingClientRect(),x=(event.clientX-b.left)*660/b.width,y=(event.clientY-b.top)*300/b.height,t=(performance.now()-jrRun.start)/1000;const hit=jrRun.targets.find(p=>Math.hypot(x-(p.x+Math.sin(t*1.1+p.phase)*18),y-(p.y+Math.sin(t*1.7+p.phase)*15))<33);if(!hit)return;jrRun.shot={x,y,at:performance.now()};if(hit.value===jrRun.answer){jrRun.score++;if(jrRun.score>=7){jrWinMission("shoot");return;}jrShootQuestion();}else document.getElementById("jr-status").textContent="おしい！ こたえを みて、もういちど！";}
-
-      function jrDrawSoko(){const grid=document.createElement("div");grid.className="jr-grid jr-soko";for(let y=0;y<7;y++)for(let x=0;x<7;x++){const b=document.createElement("button"),wall=x===0||y===0||x===6||y===6||(x===2&&y===2);b.type="button";b.className=wall?"wall":x===5&&y===2?"goal":"";if(jrRun.hero.x===x&&jrRun.hero.y===y){const image=document.createElement("canvas");image.width=64;image.height=80;image.className="jr-mini-hero";drawAdventureSprite(image.getContext("2d"),8,31,"hero",null,0,3);b.append(image);}else if(jrRun.box.x===x&&jrRun.box.y===y){const face=document.createElement("span");face.className="jr-box";face.textContent="×";b.append(face);}else if(x===5&&y===2)b.textContent="★";b.setAttribute("aria-label",`たて${y} よこ${x}`);b.addEventListener("click",()=>{const dx=x-jrRun.hero.x,dy=y-jrRun.hero.y;if(Math.abs(dx)+Math.abs(dy)===1)jrSokoMove(dx===1?"right":dx===-1?"left":dy===1?"down":"up");});grid.append(b);}document.getElementById("jr-content").replaceChildren(grid);}
-
-      function jrSokoMove(dir){if(!jrRun||jrRun.id!=="soko"||jrRun.finished)return;const [dx,dy]={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[dir],p={x:jrRun.hero.x+dx,y:jrRun.hero.y+dy},floor=p=>p.x>0&&p.y>0&&p.x<6&&p.y<6&&!(p.x===2&&p.y===2);if(!floor(p))return;const pushing=p.x===jrRun.box.x&&p.y===jrRun.box.y,next={x:p.x+dx,y:p.y+dy};if(pushing&&!floor(next))return;jrRun.history.push({hero:{...jrRun.hero},box:{...jrRun.box}});jrRun.hero=p;if(pushing)jrRun.box=next;jrDrawSoko();if(jrRun.box.x===5&&jrRun.box.y===2)jrWinMission("soko");}
 
       function jrDrawMemory(){const grid=document.createElement("div");grid.className="jr-grid jr-memory";jrRun.cards.forEach((id,i)=>{const b=document.createElement("button");b.type="button";b.classList.toggle("matched",jrRun.matched.includes(i));b.setAttribute("aria-label","カード "+(i+1));if(jrRun.flips.includes(i)||jrRun.matched.includes(i)){const img=document.createElement("img");img.src=quizPhotos[id].src;img.alt="しゃしん";b.append(img);}else b.textContent="？";b.addEventListener("click",()=>jrMemoryFlip(i));grid.append(b);});document.getElementById("jr-content").replaceChildren(grid);}
 
@@ -2080,6 +2080,68 @@
         if(run.id==="memory"&&run.hideAt&&time>=run.hideAt){run.hideAt=0;run.flips=[];jrDrawMemory();}
         if(run.id==="simon"&&run.showing){const elapsed=time-run.showAt,index=elapsed<0?-1:Math.floor(elapsed/650),flash=index<run.pattern.length&&elapsed>=0&&elapsed%650<400?run.pattern[index]:-1;if(flash!==run.lastFlash){document.querySelectorAll('.jr-simon button').forEach((b,i)=>b.classList.toggle('lit',i===flash));run.lastFlash=flash;}if(elapsed>=run.pattern.length*650){run.showing=false;document.getElementById("jr-status").textContent=`ラウンド ${run.round}/3。いまの じゅんばんで タッチ！`;}}
         if(run.id==="shoot"){const remaining=Math.max(0,30-(time-run.start)/1000),canvas=document.getElementById("jr-mini-canvas");if(!canvas)return;const c=canvas.getContext("2d"),t=(time-run.start)/1000;c.fillStyle="#c9e3aa";c.fillRect(0,0,660,300);c.fillStyle="#a8c68a";c.fillRect(0,245,660,55);c.textAlign="center";c.font="bold 24px sans-serif";for(const p of run.targets){const x=p.x+Math.sin(t*1.1+p.phase)*18,y=p.y+Math.sin(t*1.7+p.phase)*15;c.fillStyle="#fff7d6";c.strokeStyle="#6a805d";c.lineWidth=3;c.beginPath();c.arc(x,y,32,0,Math.PI*2);c.fill();c.stroke();c.fillStyle="#35574c";c.fillText(p.value,x,y+8);}if(run.shot&&time-run.shot.at<240){c.strokeStyle="#c77b48";c.beginPath();c.arc(run.shot.x,run.shot.y,38,0,Math.PI*2);c.stroke();}document.getElementById("jr-status").textContent=`${run.prompt}　あと ${remaining.toFixed(1)}びょう　${run.score}/7 ヒット`;if(remaining<=0){run.finished=true;document.getElementById("jr-status").textContent="じかんに なったよ。もういちど ちょうせんしよう！";}}
+      }
+
+      function jrSokoLevel(wins) {
+        const levels=[
+          {name:"はじめの いっぽ",hero:{x:2,y:4},box:{x:3,y:3},goal:{x:5,y:2},blocks:[{x:2,y:2}]},
+          {name:"きたの ほし",hero:{x:2,y:4},box:{x:3,y:3},goal:{x:5,y:1},blocks:[{x:2,y:2},{x:4,y:4}]},
+          {name:"ほそい みち",hero:{x:1,y:3},box:{x:2,y:3},goal:{x:5,y:3},blocks:[{x:3,y:2},{x:3,y:4}]},
+          {name:"まがりみち",hero:{x:3,y:5},box:{x:3,y:3},goal:{x:1,y:1},blocks:[{x:2,y:2},{x:4,y:2},{x:2,y:4}]}
+        ];
+        const variant=Math.max(0,Number.isInteger(wins)?wins:0)%levels.length;
+        return {...levels[variant],variant};
+      }
+
+      function jrSokoFloor(p,run=jrRun) {
+        return p.x>0&&p.y>0&&p.x<6&&p.y<6&&!run.blocks.some(block=>p.x===block.x&&p.y===block.y);
+      }
+
+      function jrDrawSoko() {
+        const grid=document.createElement("div");grid.className="jr-grid jr-soko";
+        for(let y=0;y<7;y++)for(let x=0;x<7;x++){
+          const b=document.createElement("button"),wall=!jrSokoFloor({x,y}),goal=x===jrRun.goal.x&&y===jrRun.goal.y;
+          b.type="button";b.className=wall?"wall":goal?"goal":"";
+          if(jrRun.hint?.x===x&&jrRun.hint?.y===y)b.classList.add("soko-hint");
+          if(jrRun.hero.x===x&&jrRun.hero.y===y){const image=document.createElement("canvas");image.width=64;image.height=80;image.className="jr-mini-hero";drawAdventureSprite(image.getContext("2d"),8,31,"hero",null,0,3);b.append(image);}
+          else if(jrRun.box.x===x&&jrRun.box.y===y){const face=document.createElement("span");face.className="jr-box";face.textContent="×";b.append(face);}
+          else if(goal)b.textContent="★";
+          b.setAttribute("aria-label",`たて${y} よこ${x}${goal?" ほし":""}`);
+          b.addEventListener("click",()=>{const dx=x-jrRun.hero.x,dy=y-jrRun.hero.y;if(Math.abs(dx)+Math.abs(dy)===1)jrSokoMove(dx===1?"right":dx===-1?"left":dy===1?"down":"up");});grid.append(b);
+        }
+        document.getElementById("jr-content").replaceChildren(grid);
+        if(!jrRun.finished)document.getElementById("jr-status").textContent=`へや ${jrRun.variant+1}/4　${jrRun.moves}ほ。こまったら「ヒント」や「ひとつ もどす」を つかおう！`;
+      }
+
+      function jrSokoMove(dir) {
+        if(!jrRun||jrRun.id!=="soko"||jrRun.finished)return;
+        const offset={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[dir];if(!offset)return;
+        const[dx,dy]=offset,p={x:jrRun.hero.x+dx,y:jrRun.hero.y+dy};if(!jrSokoFloor(p))return;
+        const pushing=p.x===jrRun.box.x&&p.y===jrRun.box.y,next={x:p.x+dx,y:p.y+dy};if(pushing&&!jrSokoFloor(next))return;
+        jrRun.history.push({hero:{...jrRun.hero},box:{...jrRun.box},moves:jrRun.moves});jrRun.hero=p;if(pushing)jrRun.box=next;jrRun.moves++;jrRun.hint=null;jrDrawSoko();
+        if(jrRun.box.x===jrRun.goal.x&&jrRun.box.y===jrRun.goal.y)jrWinMission("soko");
+      }
+
+      function jrSokoHintDirection(run=jrRun) {
+        if(!run||run.id!=="soko"||run.finished)return null;
+        const key=(hero,box)=>`${hero.x},${hero.y},${box.x},${box.y}`,start=key(run.hero,run.box),queue=[{hero:run.hero,box:run.box,first:null}],seen=new Set([start]);
+        for(let i=0;i<queue.length;i++){
+          const state=queue[i];if(state.box.x===run.goal.x&&state.box.y===run.goal.y)return state.first;
+          for(const[dir,dx,dy]of[["up",0,-1],["right",1,0],["down",0,1],["left",-1,0]]){
+            const hero={x:state.hero.x+dx,y:state.hero.y+dy};if(!jrSokoFloor(hero,run))continue;
+            const pushing=hero.x===state.box.x&&hero.y===state.box.y,box=pushing?{x:state.box.x+dx,y:state.box.y+dy}:state.box;if(!jrSokoFloor(box,run))continue;
+            const id=key(hero,box);if(seen.has(id))continue;seen.add(id);queue.push({hero,box,first:state.first||dir});
+          }
+        }
+        return null;
+      }
+
+      function jrSokoHint() {
+        if(!jrRun||jrRun.id!=="soko"||jrRun.finished)return;
+        const dir=jrSokoHintDirection();
+        if(!dir){document.getElementById("jr-status").textContent="はこが つまったみたい。「ひとつ もどす」か「やりなおす」で もういちど！";return;}
+        const[dx,dy]={up:[0,-1],right:[1,0],down:[0,1],left:[-1,0]}[dir];jrRun.hint={x:jrRun.hero.x+dx,y:jrRun.hero.y+dy};jrDrawSoko();
+        document.getElementById("jr-status").textContent=`つぎは「${{up:"うえ",right:"みぎ",down:"した",left:"ひだり"}[dir]}」へ １ほ すすんでみよう！`;
       }
 
       function jrSideConfig(stage){
