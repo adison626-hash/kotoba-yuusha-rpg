@@ -248,6 +248,9 @@
     .g45-chart {width:min(100%,330px);font-size:14px;}.g45-chart>div {display:flex;align-items:center;gap:6px;margin:5px 0;}.g45-chart span {min-width:45px;}.g45-chart i {display:block;height:16px;border:1px solid #586b58;border-radius:3px;}.g45-chart b {font-size:14px;}#battle-question-visual svg {max-width:250px;height:110px;font:17px sans-serif;fill:#345249;}
     .adventure .battle-choices .reading-choice {font-size:clamp(14px,2.4vw,18px);line-height:1.35;overflow-wrap:anywhere;}.battle-choices.g45-long {grid-template-columns:repeat(2,minmax(0,1fr));}.adventure .battle-choices.g45-long button {font-size:15px;min-height:60px;}.battle-question {line-height:1.45;}
     @media(max-height:500px) and (orientation:landscape) {#battle-question-visual svg {height:80px;}.g45-chart>div {margin:2px 0;}.g45-chart i {height:12px;}}
+    .battle-card {justify-content:safe center;align-content:safe center;}
+    @media(max-width:540px) and (max-height:700px) {.battle-card {padding:8px;gap:2px;}.battle-card.g4-answering #battle-art {max-height:12dvh;}.battle-card.g4-answering .battle-message,.battle-card.g4-answering .battle-rule {display:none;}.battle-card.g4-answering h2 {font-size:18px;margin:2px 0;}.battle-card.g4-answering .word-question .battle-question {font-size:17px;line-height:1.35;margin:4px 0;}.adventure .battle-card.g4-answering .battle-choices.g45-long button {font-size:14px;min-height:54px;padding:5px;}}
+    @media(max-height:500px) and (orientation:landscape) {.g45-version {left:16px;transform:none;}.battle-card.g4-answering {padding-top:6px;padding-bottom:6px;gap:2px;}.battle-card.g4-answering .battle-message,.battle-card.g4-answering .battle-rule {display:none;}.battle-card.g4-answering .word-question .battle-question {font-size:16px;line-height:1.35;}.adventure .battle-card.g4-answering .battle-choices.g45-long button {font-size:14px;min-height:54px;}}
   </style>
 </head>
 <body>
@@ -1976,7 +1979,7 @@
       }
 
       function renderAdventureQuestion(q,active) {
-        const label=document.getElementById("battle-category"),visual=document.getElementById("battle-question-visual");visual.replaceChildren();label.textContent=active?`${q.label} ・ ${quizUsedIds.size}/${quizQuestionBank.length}`:"";
+        const label=document.getElementById("battle-category"),visual=document.getElementById("battle-question-visual");visual.replaceChildren();document.querySelector(".battle-card").classList.toggle("g4-answering",Boolean(active));label.textContent=active?`${q.label} ・ ${quizUsedIds.size}/${quizQuestionBank.length}`:"";
         document.getElementById("battle-question").textContent=active?q.prompt:"";
         const choices=document.getElementById("battle-choices");choices.replaceChildren();choices.classList.toggle("photo-choices",Boolean(active&&q.optionKind==="photo"));choices.classList.toggle("g45-long",Boolean(active&&q.options.some(v=>String(v).length>8)));
         document.getElementById("battle-question-wrap").classList.toggle("word-question",Boolean(active&&(q.prompt.length>18||q.visual)));
