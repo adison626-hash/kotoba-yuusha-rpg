@@ -207,6 +207,34 @@
     @media (max-width:540px) { .battle-choices.photo-choices {grid-template-columns:repeat(2,minmax(0,1fr));} .battle-choices.photo-choices img {height:90px;} #battle-question-visual img {height:98px;width:118px;} .quiz-dot {width:17px;height:17px;} #battle-question-visual {max-width:280px;gap:6px;} .battle-question-wrap.word-question .battle-question {font-size:19px;} .adventure .battle-choices .reading-choice {font-size:17px;} .battle-card:has(.photo-choices) #battle-art {max-height:15dvh;} }
     @media (max-height:500px) and (orientation:landscape) { .battle-question-wrap {grid-column:2;} .battle-question-wrap .battle-question {font-size:25px;margin:3px 0 5px;} .battle-question-wrap.word-question .battle-question {font-size:17px;} .battle-choices.photo-choices img {height:70px;} .battle-choices.photo-choices {gap:6px;} #battle-question-visual img {width:84px;height:66px;} #battle-question-visual {margin:2px auto 4px;gap:5px;} .quiz-dot {width:16px;height:16px;} #battle-category {margin-top:1px;font-size:10px;} .adventure .battle-choices .reading-choice {font-size:16px;} }
 
+    .jr-layer {position:absolute;inset:0;z-index:3;background:#8fc47d;overflow:hidden;}
+    .jr-layer[hidden],.jr-modal[hidden],.jr-ending[hidden],.jr-controls[hidden] {display:none;}
+    #jr-map {position:absolute;inset:0;width:100%;height:100%;image-rendering:auto;touch-action:none;}
+    .jr-hud {position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top));left:10px;right:10px;display:flex;justify-content:space-between;align-items:start;gap:10px;pointer-events:none;}
+    .jr-hud>div {display:grid;gap:4px;padding:9px 12px;max-width:65%;border:3px solid #344967;border-radius:13px;background:#fff9e9ed;box-shadow:0 3px #26385838;}
+    .jr-hud small {font-size:10px;color:#6f7e5f;}.jr-hud strong {font-size:20px;}.jr-hud span {font-size:12px;}.jr-hud nav {display:flex;gap:6px;pointer-events:auto;}
+    .jr-layer button {border:2px solid #344967;border-bottom-width:4px;border-radius:10px;padding:9px 12px;min-height:44px;background:#fff9e9;color:#344967;font-weight:900;font-size:14px;cursor:pointer;touch-action:manipulation;}
+    .jr-layer button:active {transform:translateY(1px);background:#ffe6ad;}.jr-layer button:disabled {opacity:.45;cursor:default;}
+    .jr-notice {position:absolute;z-index:2;left:12px;bottom:16px;max-width:min(800px,calc(100% - 24px));margin:0;padding:10px 13px;border:2px solid #687657;border-radius:12px;background:#fff9e9ee;font-weight:850;font-size:14px;line-height:1.6;pointer-events:none;}
+    .jr-layer.side .jr-notice {bottom:119px;}.jr-controls {position:absolute;z-index:2;bottom:max(15px,env(safe-area-inset-bottom));left:12px;right:12px;display:flex;justify-content:space-between;align-items:end;gap:8px;pointer-events:none;user-select:none;}
+    .jr-controls>div {display:flex;gap:6px;pointer-events:auto;}.jr-controls button {min-height:54px;min-width:54px;background:#fff9e9ec;touch-action:none;}.jr-controls button.held {background:#ffdf91;transform:translateY(2px);}
+    .jr-controls>div:last-child {flex-wrap:wrap;max-width:370px;justify-content:end;}.jr-controls button[data-jr-hold="attack"] {background:#ffe29d;}
+    .jr-modal {position:absolute;z-index:5;inset:0;display:grid;place-items:center;padding:14px;overflow:auto;background:#17313dd9;}
+    .jr-panel {width:min(100%,780px);max-height:100%;overflow:auto;padding:20px;border:4px solid #344967;border-radius:21px;background:#fff9e9;box-shadow:0 7px #102934;}
+    .jr-panel-head {display:flex;justify-content:space-between;align-items:center;gap:10px;}.jr-panel h2 {margin:3px 0;font-size:24px;}.jr-panel p {font-size:14px;font-weight:850;line-height:1.6;}
+    #jr-status {min-height:1.6em;color:#5a7854;}#jr-tools {display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+    #jr-content {margin:12px auto;}.jr-shop-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.jr-item {padding:13px;border:2px solid #c4cdb3;border-radius:12px;background:#fffef8;}.jr-item h3 {margin:0 0 6px;}.jr-item p {font-size:12px;margin:5px 0;}.jr-item button {width:100%;}
+    .jr-grid {display:grid;gap:7px;max-width:430px;margin:auto;}.jr-memory {grid-template-columns:repeat(4,minmax(0,1fr));}.jr-memory button {height:92px;padding:5px;font-size:26px;}.jr-memory img {width:100%;height:100%;object-fit:cover;border-radius:7px;}.jr-memory .matched {border-color:#68a976;background:#dff0d6;}
+    .jr-simon {grid-template-columns:repeat(2,1fr);max-width:350px;}.jr-simon button {height:105px;font-size:24px;filter:brightness(.85);}.jr-simon .lit {filter:brightness(1.35);box-shadow:0 0 0 5px #ffe49e;}
+    .jr-lights {grid-template-columns:repeat(3,1fr);max-width:320px;}.jr-lights button {height:80px;background:#72828d;font-size:30px;}.jr-lights .on {background:#ffe6a5;}
+    .jr-soko {grid-template-columns:repeat(7,minmax(0,1fr));width:min(100%,350px);gap:0;border:3px solid #596c65;}.jr-soko button {min-height:0;aspect-ratio:1;border-radius:0;border:1px solid #bbbea5;padding:0;font-size:23px;background:#e9e2c4;}.jr-soko button.wall {background:#71857d;border:2px solid #536a61;}.jr-soko button.goal {background:#ffe29b;}
+    #jr-mini-canvas {position:relative;inset:auto;display:block;width:100%;height:auto;aspect-ratio:2.2;max-height:300px;touch-action:none;border:3px solid #6b8264;border-radius:12px;background:#c9e3aa;image-rendering:auto;}
+    .jr-soko .jr-mini-hero {position:relative;inset:auto;width:100%;height:100%;object-fit:contain;image-rendering:auto;}.jr-box {display:grid;place-items:center;width:80%;height:80%;margin:auto;border:2px solid #8e5f39;border-radius:4px;background:#d9a45f;color:#795133;box-shadow:inset 0 0 0 2px #f4d191;}
+    .jr-ending {position:absolute;z-index:4;inset:0;display:grid;place-items:center;overflow:auto;padding:20px;background:linear-gradient(#c0e5e1,#b5d990);}.jr-ending>div {padding:35px;border:4px solid #344967;border-radius:25px;background:#fff9e9f0;text-align:center;max-width:750px;}.jr-ending h2 {font-size:clamp(25px,4vw,40px);}.jr-ending p {font-weight:850;line-height:1.9;}
+    @media(max-width:540px) {.jr-hud {top:8px;left:8px;right:8px;gap:5px;}.jr-hud>div {padding:7px 9px;max-width:67%;border-width:2px;}.jr-hud strong {font-size:16px;}.jr-hud span {font-size:10px;}.jr-hud nav {flex-direction:column;gap:4px;}.jr-hud nav button {font-size:11px;padding:6px;min-height:38px;}.jr-panel {padding:12px;}.jr-panel h2 {font-size:19px;}.jr-panel p {font-size:12px;}.jr-layer button {padding:7px;font-size:12px;}.jr-controls>div {gap:4px;}.jr-controls>div:last-child {max-width:230px;}.jr-controls button {min-width:48px;min-height:49px;padding:5px;}.jr-controls {left:8px;right:8px;gap:6px;}.jr-controls>div:first-child button {min-width:43px;}.jr-layer.side .jr-notice {bottom:135px;font-size:12px;}.jr-shop-grid {grid-template-columns:1fr;}.jr-memory button {height:75px;}.jr-notice {font-size:12px;}.jr-simon button {height:90px;}}
+    @media(max-height:500px) and (orientation:landscape) {.jr-hud>div {padding:5px 8px;}.jr-hud strong {font-size:16px;}.jr-hud small {display:none;}.jr-hud span {font-size:10px;}.jr-panel {padding:10px 16px;}.jr-panel h2 {font-size:19px;}.jr-panel p {margin:4px 0;}.jr-panel-head button {min-height:36px;}.jr-notice {font-size:11px;max-width:65%;}.jr-layer.side .jr-notice {bottom:80px;}.jr-controls button {min-height:48px;}.jr-memory button {height:65px;}.jr-soko {max-width:230px;}.jr-lights button {height:55px;}.jr-simon button {height:65px;}}
+    @media(prefers-reduced-motion:reduce) {.jr-layer button:active {transform:none;}}
+
   </style>
 </head>
 <body>
@@ -286,18 +314,15 @@
           <p class="battle-rule" id="battle-rule">さんすうで こうげき、かんじで ぼうぎょ！</p>
         </div>
       </section>
-      <section class="chapter-page" id="adventure-next-page" hidden role="dialog" aria-modal="true" aria-labelledby="chapter-page-title">
-        <div class="chapter-arrival">
-          <small>だい３しょう</small>
-          <canvas id="chapter-art" width="624" height="180" aria-label="あたらしい むらと、ゆうしゃと コロ"></canvas>
-          <h2 id="chapter-page-title">ひかりの むら</h2>
-          <p>おおかみを たおして、もりを ぬけた！<br>あたらしい むらに とうちゃく！</p>
-          <p class="chapter-summary" id="chapter-summary"></p>
-          <p id="chapter-greeting">むらの なかまが、きみと コロを まっているよ。</p>
-          <button id="chapter-talk" type="button">むらびとに はなす</button>
-          <button id="chapter-return" type="button">もりの ちずに もどる</button>
-        </div>
+      <section id="adventure-next-page" class="jr-layer" hidden role="dialog" aria-modal="true" aria-label="あたらしい たんけん">
+        <canvas id="jr-map" aria-label="むらや みちを タッチして いどう。人を タッチして はなす。"></canvas>
+        <header class="jr-hud"><div><small id="jr-chapter"></small><strong id="jr-title"></strong><span id="jr-stats"></span><span id="jr-gear"></span></div><nav><button id="jr-guide" type="button">おしごと</button><button id="jr-bag" type="button">もちもの</button><button id="jr-back" type="button">もどる</button></nav></header>
+        <p id="jr-notice" class="jr-notice" role="status" aria-live="polite"></p>
+        <div id="jr-side-controls" class="jr-controls" hidden><div><button data-jr-hold="left" type="button">◀</button><button data-jr-hold="right" type="button">▶</button></div><div><button id="jr-jump" type="button">ジャンプ</button><button data-jr-hold="attack" type="button">⚔ こうげき</button><button data-jr-hold="guard" type="button">🛡 まもる</button><button id="jr-potion" type="button">くすり</button></div></div>
+        <section id="jr-modal" class="jr-modal" hidden role="dialog" aria-modal="true" aria-labelledby="jr-modal-title"><div class="jr-panel"><div class="jr-panel-head"><h2 id="jr-modal-title"></h2><button id="jr-close" type="button">とじる</button></div><p id="jr-instruction"></p><p id="jr-status" role="status" aria-live="polite"></p><div id="jr-content"></div><div id="jr-tools"></div></div></section>
+        <section id="jr-ending" class="jr-ending" hidden><div><small>たんけん クリア！</small><h2>ひかりを つないだ ゆうしゃ</h2><p>もり、むら、ながい みち、いせき。<br>きみと コロは、みんなを まもった！</p><p id="jr-ending-stats"></p><button id="jr-ending-return" type="button">むらで また あそぶ</button></div></section>
       </section>
+
 
     </section>
 
@@ -1297,7 +1322,7 @@
       function newAdventureState() {return {version:2,x:1,y:6,sword:false,hp:24,defeated:[],gold:0,xp:0,nextPage:false};}
       function adventureFloor(x, y) { return Number.isInteger(x) && Number.isInteger(y) && adventureLayout[y]?.[x] === "."; }
       function validAdventureState(s) {
-        return s&&(s.version===1||s.version===2)&&Number.isInteger(s.x)&&Number.isInteger(s.y)&&typeof s.sword==="boolean"&&Number.isInteger(s.hp)&&s.hp>0&&s.hp<=48&&Array.isArray(s.defeated)&&s.defeated.length<=adventureMonsters.length&&new Set(s.defeated).size===s.defeated.length&&s.defeated.every(id=>adventureMonsters.some(m=>m.id===id))&&(s.sword||!s.defeated.length)&&(s.version===1||(adventureFloor(s.x,s.y)&&typeof s.nextPage==="boolean"));
+        return s&&(s.version===1||s.version===2)&&Number.isInteger(s.x)&&Number.isInteger(s.y)&&typeof s.sword==="boolean"&&Number.isInteger(s.hp)&&s.hp>0&&s.hp<=110&&Array.isArray(s.defeated)&&s.defeated.length<=adventureMonsters.length&&new Set(s.defeated).size===s.defeated.length&&s.defeated.every(id=>adventureMonsters.some(m=>m.id===id))&&(s.sword||!s.defeated.length)&&(s.version===1||(adventureFloor(s.x,s.y)&&typeof s.nextPage==="boolean"));
       }
       function adventureComplete() {return adventureState.defeated.includes("gray-wolf");}
       function shuffleAdventure(values) {
@@ -1324,8 +1349,8 @@
       function updateAdventureHud() {
         const level=adventureLevel();
         document.getElementById("adventure-hp").textContent=`♥ HP ${adventureState.hp}/${adventureMaxHp()}`;
-        document.getElementById("adventure-weapon").textContent=adventureState.sword?"⚔ きのつるぎ":"ぶき：まだ ないよ";
-        document.getElementById("adventure-stats").textContent=`Lv.${level}　おかね ${adventureState.gold} G　EXP ${adventureState.xp}${level===5?" MAX":" / "+adventureXpNext()}`;
+        document.getElementById("adventure-weapon").textContent=adventureState.sword?"⚔ "+jrWeapon().name:"ぶき：まだ ないよ";
+        document.getElementById("adventure-stats").textContent=`Lv.${level}　おかね ${adventureState.gold} G　EXP ${adventureState.xp}${level===10?" MAX":" / "+adventureXpNext()}`;
         document.getElementById("adventure-progress").textContent=adventureComplete()?"★ おおかみ げきは！":"まもの "+adventureState.defeated.filter(id=>id!=="gray-wolf").length+" / "+(adventureMonsters.length-1);
         document.querySelector(".adventure-map-tag").textContent=adventureState.y>=23&&adventureState.x>=25?"🐺 おおかみの すみか":adventureState.x>=21?"🌲 まよいの もり":adventureState.x>=11?"🌳 ふかい もり":"🌿 こもれびの もり";
       }
@@ -1351,7 +1376,7 @@
             drawPerson(actor,time,true,"right");
             if (adventureState.sword) {
               ctx.save(); ctx.translate(28,17); ctx.rotate(pose.swing ?? -.22);
-              polygon([[-2,2],[-2,-23],[0,-28],[3,-23],[3,2]],"#d49b57","#684731",1.5);
+              polygon([[-2,2],[-2,-23],[0,-28],[3,-23],[3,2]],jrWeapon().color,"#684731",1.5);
               rect(0,-23,1,22,"#ffe0a0");
               polygon([[-6,0],[7,0],[7,3],[-6,3]],"#c08b46","#684731",1.2);
               polygon([[-1,3],[3,3],[3,10],[-1,10]],"#855632","#684731",1.2);
@@ -1497,7 +1522,8 @@
 
       function adventureTick(time) {
         if(!ruinsRoomOpen){adventureFrame=0;return;}
-        if(!adventureState.nextPage){updateAdventureRoute(time);drawAdventureMap(time);}
+        if(adventureState.nextPage)journeyTick(time);
+        else {updateAdventureRoute(time);drawAdventureMap(time);}
         if(adventureBattle){drawAdventureBattle(time);if(["attack","defend"].includes(adventureBattle.phase))updateAdventureTimer(time);}
         adventureFrame=requestAnimationFrame(adventureTick);
       }
@@ -1588,7 +1614,7 @@
       }
       function resolveAdventureAttack(correct,remaining,timedOut) {
         const b=adventureBattle;if(!b||b.phase!=="attack")return;
-        const answer=b.question.answer,damage=correct?adventureDamage(remaining)+(adventureLevel()-1)*2:0;
+        const answer=b.question.answer,damage=correct?adventureDamage(remaining)+(adventureLevel()-1)*2+jrWeapon().attack:0;
         b.enemyHp=Math.max(0,b.enemyHp-damage);if(damage)animateAdventureBattle("attack",damage);
         if(b.enemyHp===0){
           const reward=awardAdventureVictory(b.monster);if(adventureComplete())ruinsRewardClaimed=true;
@@ -1606,10 +1632,10 @@
         const feedback=b.question.feedback;
         if(correct){animateAdventureBattle("guard",0);showAdventureBattle("guard-result","かんぺき ぼうぎょ！ ダメージ 0！ そのちょうし！","つぎの こうげき！");}
         else{
-          adventureState.hp=Math.max(0,adventureState.hp-b.monster.attack);animateAdventureBattle("hurt",b.monster.attack);
+          adventureState.hp=Math.max(0,adventureState.hp-Math.max(1,b.monster.attack-jrDefense()));animateAdventureBattle("hurt",Math.max(1,b.monster.attack-jrDefense()));
           const explanation=`${timedOut?"じかんに なったよ。":"おしい！"} ${feedback}`;
           if(adventureState.hp===0){adventureState.hp=adventureMaxHp();adventureState.x=1;adventureState.y=6;adventureVisual=null;adventureCancelRoute();adventurePet={x:1,y:5,fromX:1,fromY:5,at:0};showAdventureBattle("lose",`${explanation} いりぐちで かいふくして もういちど！ おかねと EXPは なくならないよ。`,"いりぐちで やすむ");}
-          else showAdventureBattle("guard-result",`${explanation} ${b.monster.attack} ダメージ。つぎは まもれるよ！`,"つぎの こうげき！");
+          else showAdventureBattle("guard-result",`${explanation} ${Math.max(1,b.monster.attack-jrDefense())} ダメージ。つぎは まもれるよ！`,"つぎの こうげき！");
         }
         updateAdventureHud();saveProgress();
       }
@@ -1639,7 +1665,7 @@
         const dirs={ArrowUp:"up",ArrowDown:"down",ArrowLeft:"left",ArrowRight:"right",w:"up",s:"down",a:"left",d:"right"};
         event.stopImmediatePropagation();
         if(key==="Tab"){
-          const scope=adventureState.nextPage?document.getElementById("adventure-next-page"):adventureBattle?battleElement:adventureElement;
+          const scope=adventureState.nextPage?(!jrModal.hidden?jrModal:document.getElementById("adventure-next-page")):adventureBattle?battleElement:adventureElement;
           const items=[...scope.querySelectorAll("button:not(:disabled),canvas[tabindex]")].filter(el=>!el.closest('[hidden]'));
           const first=items[0],last=items[items.length-1];
           if(event.shiftKey&&(document.activeElement===first||!scope.contains(document.activeElement))){event.preventDefault();last?.focus();}
@@ -1669,18 +1695,18 @@
         return cells.map(row=>row.join(""));
       }
 
-      function adventureLevel(xp=adventureState.xp) {return xp>=190?5:xp>=110?4:xp>=55?3:xp>=20?2:1;}
+      function adventureLevel(xp=adventureState.xp){return [0,20,55,110,190,300,460,680,950,1300].filter(n=>xp>=n).length||1;}
 
-      function adventureMaxHp() {return 24+(adventureLevel()-1)*6;}
+      function adventureMaxHp(){return 24+(adventureLevel()-1)*6+jrArmors[journeyState.armor].hp;}
 
-      function adventureXpNext() {return [0,20,55,110,190,Infinity][adventureLevel()];}
+      function adventureXpNext(){return [0,20,55,110,190,300,460,680,950,1300,Infinity][adventureLevel()];}
 
       function normalizeAdventureState(saved) {
         if(!validAdventureState(saved))return newAdventureState();
         const s=JSON.parse(JSON.stringify(saved));const legacy=s.version===1;s.version=2;
         s.gold=s.defeated.reduce((sum,id)=>sum+adventureMonsters.find(m=>m.id===id).gold,0);
         s.xp=s.defeated.reduce((sum,id)=>sum+adventureMonsters.find(m=>m.id===id).xp,0);
-        s.hp=Math.min(s.hp,24+(adventureLevel(s.xp)-1)*6);
+        s.hp=Math.min(s.hp,110);
         s.nextPage=s.nextPage===true&&s.defeated.includes("gray-wolf");
         if(legacy){s.x=1;s.y=6;}
         return s;
@@ -1759,12 +1785,7 @@
 
       function openAdventureNextPage() {if(!adventureComplete())return false;adventureCancelRoute();adventureState.nextPage=true;showAdventureNextPage();saveProgress();return true;}
 
-      function showAdventureNextPage() {
-        document.getElementById("adventure-next-page").hidden=false;
-        document.getElementById("chapter-summary").textContent=`Lv.${adventureLevel()}　おかね ${adventureState.gold} G　EXP ${adventureState.xp}　まもの ${adventureState.defeated.length}たい げきは！`;
-        document.getElementById("chapter-talk").focus();
-        drawAdventureArrival();
-      }
+      function showAdventureNextPage(){jrLayer.hidden=false;jrOpenStage(journeyState.stage);}
 
       function returnAdventureMap() {adventureState.nextPage=false;document.getElementById("adventure-next-page").hidden=true;updateAdventureHud();adventureNotice("おやぶんを たおして もりは あんしん！ いつでも もんから むらへ いけるよ。");saveProgress();adventureCanvas.focus();}
 
@@ -1906,6 +1927,241 @@
         });
       }
 
+      const jrWeapons={wood:{name:"きのつるぎ",price:0,attack:0,color:"#d49b57"},bronze:{name:"どうのつるぎ",price:55,attack:3,color:"#c68c59"},iron:{name:"てつのつるぎ",price:110,attack:6,color:"#c1d5de"},star:{name:"ほしのつるぎ",price:200,attack:10,color:"#ffe08a"}};
+      const jrArmors={cloth:{name:"たびのふく",price:0,hp:0,defense:0},vest:{name:"かわのベスト",price:50,hp:6,defense:2},chain:{name:"くさりのよろい",price:120,hp:12,defense:4}};
+      const jrMissions={shoot:{name:"すうじの まとあて",npc:"レン",first:[40,24],repeat:[14,8]},soko:{name:"はこおし",npc:"ダイ",first:[45,30],repeat:[16,10]},memory:{name:"しゃしんの ペア",npc:"ハナ",first:[35,24],repeat:[12,8]},simon:{name:"ひかりの じゅんばん",npc:"ミナ",first:[40,28],repeat:[14,9]},lights:{name:"９つの あかり",npc:"ソラ",first:[45,30],repeat:[16,10]}};
+      const jrNpcs=[{id:"shoot",x:3,y:5,color:"#7aaad1",hair:"#80533d",style:"cap"},{id:"soko",x:9,y:5,color:"#e6ac6e",hair:"#6a4e3f",style:"cap"},{id:"memory",x:15,y:5,color:"#de8da5",hair:"#815366",style:"flower"},{id:"simon",x:18,y:7,color:"#9e91cf",hair:"#675079",style:"flower"},{id:"lights",x:6,y:11,color:"#86b77a",hair:"#5a5849",style:"cap"},{id:"shop",x:16,y:12,name:"どうぐや",color:"#739aac",hair:"#735342",style:"cap"},{id:"mayor",x:11,y:9,name:"そんちょう",color:"#b397d1",hair:"#7e7184",style:"bun"},{id:"inn",x:3,y:12,name:"やすみどころ",color:"#e1aa91",hair:"#8a634d",style:"flower"},{id:"gate",x:20,y:13,name:"たびの もん"}];
+      const jrHouses=[{x:2,y:1,w:3,h:3,roof:"#88bed9",wall:"#ffedb4",door:"#966745"},{x:8,y:1,w:3,h:3,roof:"#e69b75",wall:"#ffe5ad",door:"#966745"},{x:14,y:1,w:3,h:3,roof:"#dd9db3",wall:"#ffe9c9",door:"#966745"},{x:17,y:8,w:3,h:3,roof:"#8eafd2",wall:"#ffe9b3",door:"#966745"}];
+      let journeyState=newJourneyState();
+      const jrLayer=document.getElementById("adventure-next-page"),jrCanvas=document.getElementById("jr-map"),jrCtx=jrCanvas.getContext("2d"),jrModal=document.getElementById("jr-modal");
+      let jrRun=null,jrMode="",jrRoute=[],jrTarget=null,jrLastStep=0,jrMotion=null,jrSide=null,jrLastTime=0,jrHudText="",jrView={x:0,y:0,w:800,h:600,z:1,oy:0};
+      const jrHeld=new Set();
+
+      function newJourneyState(){return {version:1,stage:"village",bonusGold:0,bonusXp:0,spentGold:0,weapons:["wood"],weapon:"wood",armors:["cloth"],armor:"cloth",potions:2,fullPotions:0,quests:{shoot:0,soko:0,memory:0,simon:0,lights:0},villageX:2,villageY:10,sideHp:24,checkpoints:{road:{x:90,y:400},castle:{x:90,y:400}},picked:[],defeated:[],roadClear:false,castleClear:false,mayorClaim:false};}
+
+      function restoreJourneyState(saved){
+        const fresh=newJourneyState();
+        if(saved&&saved.version===1&&["bonusGold","bonusXp","spentGold"].every(k=>Number.isInteger(saved[k])&&saved[k]>=0&&saved[k]<=1e7)){
+          fresh.bonusGold=saved.bonusGold;fresh.bonusXp=saved.bonusXp;fresh.spentGold=saved.spentGold;
+          fresh.weapons=[...new Set(["wood",...(Array.isArray(saved.weapons)?saved.weapons:[]).filter(k=>jrWeapons[k])])];fresh.weapon=fresh.weapons.includes(saved.weapon)?saved.weapon:"wood";
+          fresh.armors=[...new Set(["cloth",...(Array.isArray(saved.armors)?saved.armors:[]).filter(k=>jrArmors[k])])];fresh.armor=fresh.armors.includes(saved.armor)?saved.armor:"cloth";
+          for(const k of Object.keys(jrMissions))fresh.quests[k]=Number.isInteger(saved.quests?.[k])?Math.max(0,Math.min(1e6,saved.quests[k])):0;
+          for(const key of["potions","fullPotions"])fresh[key]=Number.isInteger(saved[key])?Math.max(0,Math.min(9,saved[key])):fresh[key];
+          for(const key of["roadClear","castleClear","mayorClaim"])fresh[key]=saved[key]===true;
+          fresh.stage=["village","road","castle","ending"].includes(saved.stage)?saved.stage:"village";
+          if(!Object.values(fresh.quests).every(n=>n>0)&&fresh.stage!=="village")fresh.stage="village";
+          if(!fresh.roadClear&&["castle","ending"].includes(fresh.stage))fresh.stage="road";if(!fresh.castleClear&&fresh.stage==="ending")fresh.stage="castle";
+          if(jrVillageFloor(saved.villageX,saved.villageY)){fresh.villageX=saved.villageX;fresh.villageY=saved.villageY;}
+          for(const stage of["road","castle"]){const p=saved.checkpoints?.[stage];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=50&&p.x<(stage==="road"?6000:2600)&&p.y>=150&&p.y<=400)fresh.checkpoints[stage]={x:p.x,y:p.y};}
+          for(const key of["picked","defeated"])fresh[key]=Array.isArray(saved[key])?[...new Set(saved[key].filter(id=>typeof id==="string"&&/^(road|castle)-[a-z0-9-]+$/.test(id)))].slice(0,300):[];
+          if(Number.isInteger(saved.sideHp)&&saved.sideHp>0)fresh.sideHp=Math.min(110,saved.sideHp);
+        }
+        journeyState=fresh;syncJourneyWallet();adventureState.hp=Math.min(adventureState.hp,adventureMaxHp());journeyState.sideHp=Math.min(journeyState.sideHp,adventureMaxHp());
+      }
+
+      function syncJourneyWallet(){const base=adventureState.defeated.reduce((a,id)=>{const m=adventureMonsters.find(m=>m.id===id);return {gold:a.gold+(m?.gold||0),xp:a.xp+(m?.xp||0)};},{gold:0,xp:0});journeyState.spentGold=Math.min(journeyState.spentGold,base.gold+journeyState.bonusGold);adventureState.gold=base.gold+journeyState.bonusGold-journeyState.spentGold;adventureState.xp=base.xp+journeyState.bonusXp;}
+
+      function jrWeapon(){return jrWeapons[journeyState.weapon];}
+
+      function jrDefense(){return jrArmors[journeyState.armor].defense;}
+
+      function jrReward(gold,xp){const old=adventureLevel();journeyState.bonusGold+=gold;journeyState.bonusXp+=xp;syncJourneyWallet();if(adventureLevel()>old){journeyState.sideHp=adventureMaxHp();adventureState.hp=adventureMaxHp();if(jrSide)jrSide.hp=adventureMaxHp();}saveProgress();jrHud();}
+
+      function jrSay(text){document.getElementById("jr-notice").textContent=text;}
+
+      function jrHud(){const hp=jrSide?Math.max(0,Math.ceil(jrSide.hp)):journeyState.sideHp;const text=`Lv.${adventureLevel()}　HP ${hp}/${adventureMaxHp()}　${adventureState.gold} G　EXP ${adventureState.xp}`;if(text!==jrHudText){document.getElementById("jr-stats").textContent=text;jrHudText=text;}document.getElementById("jr-gear").textContent=`⚔ ${jrWeapon().name}　${jrArmors[journeyState.armor].name}　くすり ${journeyState.potions+journeyState.fullPotions}`;}
+
+      function jrVillageDone(){return Object.values(journeyState.quests).every(n=>n>0);}
+
+      function jrVillageFloor(x,y){return Number.isInteger(x)&&Number.isInteger(y)&&x>0&&y>0&&x<21&&y<15&&!jrHouses.some(h=>x>=h.x&&x<h.x+h.w&&y>=h.y&&y<h.y+h.h);}
+
+      function jrOpenStage(stage){
+        journeyState.stage=stage;jrRun=null;jrMode="";jrModal.hidden=true;jrRoute=[];jrTarget=null;jrHeld.clear();document.querySelectorAll('[data-jr-hold]').forEach(b=>b.classList.remove('held'));jrLastTime=0;jrHudText="";
+        jrLayer.classList.toggle("side",stage==="road"||stage==="castle");document.getElementById("jr-side-controls").hidden=!["road","castle"].includes(stage);document.getElementById("jr-ending").hidden=stage!=="ending";
+        document.getElementById("jr-guide").hidden=stage!=="village";
+        document.getElementById("jr-chapter").textContent=stage==="village"?"だい２しょう":stage==="road"?"だい３しょう":stage==="castle"?"だい４しょう":"たんけん クリア！";
+        document.getElementById("jr-title").textContent=stage==="village"?"ひかりの むら":stage==="road"?"こもれびの ながいみち":stage==="castle"?"ほしあかりの いせき":"ありがとう、ゆうしゃ！";
+        if(stage==="road"||stage==="castle"){jrStartSide(stage);jrSay("いきたい ところや まものを タッチ！ ジャンプ、こうげき、まもる、くすりも つかおう。");}
+        else{jrSide=null;if(stage==="ending"){document.getElementById("jr-ending-stats").textContent=`Lv.${adventureLevel()} / ${adventureState.gold} G / EXP ${adventureState.xp} / むらの おしごと ${Object.values(journeyState.quests).reduce((a,b)=>a+b,0)}かい`;jrSay("むらの なかまが、きみと コロを ほめているよ！");}else jrSay(jrVillageDone()?"５つの おしごと クリア！ みぎしたの もんから たびを つづけよう。":"人を タッチして おしごとに ちょうせん！ ５しゅるい できたら、たびの もんが ひらくよ。");}
+        jrHud();saveProgress();
+      }
+
+      function jrModalOpen(title,instruction){jrModal.hidden=false;document.getElementById("jr-modal-title").textContent=title;document.getElementById("jr-instruction").textContent=instruction;document.getElementById("jr-status").textContent="";document.getElementById("jr-content").replaceChildren();document.getElementById("jr-content").className="";document.getElementById("jr-tools").replaceChildren();jrHeld.clear();}
+
+      function jrCloseModal(){jrModal.hidden=true;jrRun=null;jrMode="";jrLastTime=0;}
+
+      function jrOpenGuide(){jrMode="guide";jrRun=null;jrModalOpen("むらの おしごと てちょう","５しゅるいを クリアしよう！ なかまの ボタンを タッチすると、そこまで あるいていくよ。");const content=document.getElementById("jr-content");content.className="jr-shop-grid";for(const [id,mission]of Object.entries(jrMissions)){const card=document.createElement("div");card.className="jr-item";const h=document.createElement("h3");h.textContent=`${journeyState.quests[id]?"★":"！"} ${mission.npc}：${mission.name}`;const p=document.createElement("p");p.textContent=`クリア ${journeyState.quests[id]}かい / はじめて ${mission.first[0]} G / くりかえし ${mission.repeat[0]} G`;const b=document.createElement("button");b.type="button";b.textContent="この人に はなす";b.addEventListener("click",()=>{jrCloseModal();const n=jrNpcs.find(n=>n.id===id);jrVillageRoute(n,n);});card.append(h,p,b);content.append(card);}}
+
+      function jrTool(label,fn){const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",fn);document.getElementById("jr-tools").append(b);return b;}
+
+      function jrWinMission(id){if(!jrRun||jrRun.finished)return;jrRun.finished=true;const first=journeyState.quests[id]===0,reward=first?jrMissions[id].first:jrMissions[id].repeat;journeyState.quests[id]++;jrReward(...reward);document.getElementById("jr-status").textContent=`やったね！ ${reward[0]} G と ${reward[1]} EXP！ ${first?"はじめての クリア！":"もういちど クリア！"}`;document.getElementById("jr-tools").replaceChildren();jrTool("もういちど あそぶ",()=>jrStartMission(id));jrTool("むらへ もどる",jrCloseModal);jrSay(jrVillageDone()?"５つの おしごと クリア！ たびの もんが ひらいた！":"おしごと クリア！ べつの なかまにも はなしかけよう。");saveProgress();}
+
+      function jrTalk(id){
+        if(jrMissions[id]){jrStartMission(id);return;}
+        if(id==="shop"){jrOpenShop(true);return;}
+        if(id==="inn"){journeyState.sideHp=adventureMaxHp();adventureState.hp=adventureMaxHp();jrSay("やすみどころ：HPが ぜんぶ もどったよ。くすりは たびの とちゅうで つかってね！");jrHud();saveProgress();return;}
+        if(id==="mayor"){if(jrVillageDone()&&!journeyState.mayorClaim){journeyState.mayorClaim=true;jrReward(60,50);jrSay("そんちょう：みんなを たすけたね！ おれいに 60 G と 50 EXP！ もんの むこうへ しゅっぱつ！");}else jrSay(jrVillageDone()?"そんちょう：おしごとは なんどでも あそべるよ。どうぐやで じゅんびして しゅっぱつ！":`そんちょう：５にんの おしごとを ひとつずつ クリアしよう！ いま ${Object.values(journeyState.quests).filter(n=>n>0).length}/5 だよ。`);return;}
+        if(id==="gate"){if(!jrVillageDone()){jrSay("もんの ばんにん：５つの おしごとを クリアすると、たびに でられるよ！");return;}if(!journeyState.roadClear)journeyState.sideHp=adventureMaxHp();jrOpenStage(journeyState.roadClear?"castle":"road");}
+      }
+
+      function jrOpenShop(buy=false){jrMode="shop";jrRun=null;jrModalOpen(buy?"どうぐやの ポポ":"もちもの",buy?"ぶき、よろい、くすり。タッチして かう・そうびするよ。":"かうのは むらで。もっている ぶきと よろいは ここで かえられるよ。");jrRenderShop(buy);}
+
+      function jrRenderShop(buy){
+        const content=document.getElementById("jr-content");content.replaceChildren();content.className="jr-shop-grid";document.getElementById("jr-status").textContent=`おかね ${adventureState.gold} G　くすり ${journeyState.potions} / ぜんかいふく ${journeyState.fullPotions}`;
+        for(const [kind,items]of[["weapon",jrWeapons],["armor",jrArmors]])for(const [id,item]of Object.entries(items)){
+          const owned=journeyState[kind==="weapon"?"weapons":"armors"].includes(id),equipped=journeyState[kind]===id,card=document.createElement("div");card.className="jr-item";const h=document.createElement("h3");h.textContent=item.name;const p=document.createElement("p");p.textContent=kind==="weapon"?`こうげき +${item.attack}　${item.price} G`:`HP +${item.hp} / ダメージ −${item.defense}　${item.price} G`;const b=document.createElement("button");b.type="button";b.textContent=equipped?"そうびちゅう":owned?"そうびする":buy?`${item.price} Gで かう`:"もっていない";b.disabled=equipped||(!owned&&(!buy||adventureState.gold<item.price));b.addEventListener("click",()=>{jrBuy(kind,id,buy);jrRenderShop(buy);});card.append(h,p,b);content.append(card);
+        }
+        if(buy)for(const [id,name,price]of[["potions","かいふくの くすり",15],["fullPotions","ぜんかいふくの くすり",30]]){const card=document.createElement("div");card.className="jr-item";const p=document.createElement("p");p.textContent=`${name}：${id==="potions"?"HP 24":"HP ぜんぶ"} / ${price} G / もっている ${journeyState[id]}こ`;const b=document.createElement("button");b.type="button";b.textContent="かう";b.disabled=adventureState.gold<price||journeyState[id]>=9;b.addEventListener("click",()=>{if(adventureState.gold>=price&&journeyState[id]<9){journeyState.spentGold+=price;journeyState[id]++;syncJourneyWallet();saveProgress();jrHud();jrRenderShop(true);}});card.append(p,b);content.append(card);}
+      }
+
+      function jrBuy(kind,id,buy){const item=(kind==="weapon"?jrWeapons:jrArmors)[id];if(!item)return false;const owned=journeyState[kind==="weapon"?"weapons":"armors"];if(!owned.includes(id)){if(!buy||adventureState.gold<item.price)return false;journeyState.spentGold+=item.price;owned.push(id);}journeyState[kind]=id;syncJourneyWallet();journeyState.sideHp=Math.min(journeyState.sideHp,adventureMaxHp());if(jrSide)jrSide.hp=Math.min(jrSide.hp,adventureMaxHp());adventureState.hp=Math.min(adventureState.hp,adventureMaxHp());saveProgress();jrHud();return true;}
+
+      function jrPrepareCanvas(){const bounds=jrCanvas.getBoundingClientRect(),z=Math.max(.75,Math.min(1.4,bounds.width/850)),density=Math.min(2,Math.max(1.5,window.devicePixelRatio||1));jrView.w=bounds.width/z;jrView.h=bounds.height/z;jrView.z=z;const w=Math.round(bounds.width*density),h=Math.round(bounds.height*density);if(jrCanvas.width!==w||jrCanvas.height!==h){jrCanvas.width=w;jrCanvas.height=h;}jrCtx.setTransform(density*z,0,0,density*z,0,0);return jrCtx;}
+
+      function jrVillageRoute(tile,target=null){
+        if(!jrModal.hidden)return false;jrRoute=[];jrTarget=null;
+        const destinations=target?[[0,-1],[1,0],[0,1],[-1,0]].map(([dx,dy])=>({x:tile.x+dx,y:tile.y+dy})).filter(p=>jrVillageFloor(p.x,p.y)):jrVillageFloor(tile.x,tile.y)?[tile]:[];
+        const goals=new Set(destinations.map(p=>p.x+","+p.y)),initial=journeyState.villageX+","+journeyState.villageY,queue=[{x:journeyState.villageX,y:journeyState.villageY}],previous=new Map([[initial,null]]);let end=null;
+        for(let i=0;i<queue.length;i++){const p=queue[i],key=p.x+","+p.y;if(goals.has(key)){end=key;break;}for(const [dir,dx,dy]of[["up",0,-1],["right",1,0],["down",0,1],["left",-1,0]]){const x=p.x+dx,y=p.y+dy,k=x+","+y;if(!previous.has(k)&&jrVillageFloor(x,y)){previous.set(k,{key,dir});queue.push({x,y});}}}
+        if(end===null){jrSay("そこへは いけないよ。人や みちを タッチしてね。");return false;}const path=[];while(end!==initial){const p=previous.get(end);path.push(p.dir);end=p.key;}jrRoute=path.reverse();jrTarget=target;return true;
+      }
+
+      function jrUpdateVillage(time){if(!jrModal.hidden)return;if(time-jrLastStep<155)return;if(jrRoute.length){const dir=jrRoute.shift(),offset={up:[0,-1],right:[1,0],down:[0,1],left:[-1,0]}[dir];jrMotion={x:journeyState.villageX,y:journeyState.villageY,at:time};journeyState.villageX+=offset[0];journeyState.villageY+=offset[1];jrLastStep=time;scheduleProgressSave();}else if(jrTarget){const id=jrTarget.id;jrTarget=null;jrTalk(id);}}
+
+      function jrDrawVillage(time){
+        const c=jrPrepareCanvas();let hx=journeyState.villageX,hy=journeyState.villageY;if(jrMotion){const p=Math.min(1,(time-jrMotion.at)/145);hx=jrMotion.x+(hx-jrMotion.x)*p;hy=jrMotion.y+(hy-jrMotion.y)*p;if(p>=1)jrMotion=null;}
+        jrView.x=Math.max(0,Math.min(1056-jrView.w,hx*48+24-jrView.w/2));jrView.y=Math.max(0,Math.min(768-jrView.h+70/jrView.z,hy*48+24-jrView.h/2));jrView.oy=0;c.fillStyle="#91dd70";c.fillRect(0,0,jrView.w,jrView.h);c.save();c.translate(-jrView.x,-jrView.y);
+        withAdventureDrawing(c,()=>{for(let y=0;y<16;y++)for(let x=0;x<22;x++){const px=x*48,py=y*48;rect(px,py,48,48,(x+y)%2?"#98dd7c":"#91d874");if(y===6||y===12||x===11){rect(px,py,48,48,(x+y)%3?"#efd093":"#f4d49a");rect(px+7,py+27,5,3,"#dabc82");}if(x===0||y===0||x===21||y===15){rect(px+21,py+17,9,30,"#ad8150");oval(px+2,py+4,43,34,"#80bd6b","#508c56");oval(px+9,py,25,20,"#9bd178","#508c56");}}
+          ctx.save();ctx.scale(1.5,1.5);for(const h of jrHouses)drawHouse(h);ctx.restore();
+          oval(470,355,108,40,"#c9d98e","#8ca96a");oval(482,349,83,33,"#6ac5d5","#518c95");rect(500+Math.sin(time/500)*3,358,30,3,"#defff5");
+          for(const [x,y]of[[180,330],[420,330],[720,330],[190,620],[500,620],[700,620]]){rect(x-18,y+6,38,10,"#ad8555");rect(x-15,y+15,4,8,"#836448");rect(x+12,y+15,4,8,"#836448");for(let i=0;i<3;i++){const px=x-11+i*11;rect(px,y-4,2,12,"#6a9b50");oval(px-4,y-9,10,8,i%2?"#f4d278":"#e9a4b8","#be7c8c");oval(px-1,y-7,4,4,"#fff0b7");}}
+          polygon([[964,665],[964,594],[980,579],[1006,579],[1020,594],[1020,665]],"#b3a17e","#7e775b",3);rect(979,596,26,67,jrVillageDone()?"#d5edb2":"#816f51");
+        });
+        const actors=jrNpcs.filter(n=>n.id!=="gate").map(n=>({...n,npc:true}));actors.push({x:hx-.8,y:hy+.12,id:"fox"});actors.push({x:hx,y:hy,id:"hero"});actors.sort((a,b)=>a.y-b.y).forEach(a=>{if(a.npc)withAdventureDrawing(c,()=>{ctx.translate(a.x*48,a.y*48);ctx.scale(1.5,1.5);drawPerson({...a,visualX:0,visualY:0,walk:0,motion:null},time);});else drawAdventureSprite(c,a.x*48,a.y*48,a.id,null,time,a.id==="fox"?2.6:3,{moving:!!jrMotion});});
+        c.textAlign="center";c.font="bold 12px sans-serif";for(const n of jrNpcs){const mission=jrMissions[n.id],text=mission?`${mission.npc}：${mission.name} ${journeyState.quests[n.id]?"★":"！"}`:n.name,w=c.measureText(text).width+10;c.fillStyle="#fff9e9ef";c.fillRect(n.x*48+24-w/2,n.y*48-37,w,19);c.strokeStyle="#7b8e66";c.lineWidth=1;c.strokeRect(n.x*48+24-w/2,n.y*48-37,w,19);c.fillStyle="#355a4a";c.fillText(text,n.x*48+24,n.y*48-23);}
+        c.restore();
+      }
+
+      function jrVillagePointer(event){if(!jrModal.hidden)return;const b=jrCanvas.getBoundingClientRect(),wx=(event.clientX-b.left)/jrView.z+jrView.x,wy=(event.clientY-b.top)/jrView.z+jrView.y;const n=jrNpcs.map(n=>({n,d:Math.hypot(wx-(n.x*48+24),wy-(n.y*48+10))})).filter(p=>p.d<45).sort((a,b)=>a.d-b.d)[0]?.n;jrVillageRoute(n||{x:Math.floor(wx/48),y:Math.floor(wy/48)},n||null);}
+
+      function journeyTick(time){if(!adventureState.nextPage||jrLayer.hidden)return;const dt=jrLastTime?Math.min(.035,(time-jrLastTime)/1000):0;jrLastTime=time;if(journeyState.stage==="village"){jrUpdateVillage(time);jrDrawVillage(time);}else if(["road","castle"].includes(journeyState.stage)){if(jrModal.hidden)jrUpdateSide(dt,time);jrDrawSide(time);}if(jrRun)jrUpdateMission(time);}
+
+      function jrStartMission(id){
+        const mission=jrMissions[id];if(!mission)return;jrMode=id;jrRun={id,finished:false,start:performance.now()};jrModalOpen(`${mission.npc}：${mission.name}`,`はじめて ${mission.first[0]} G / ${mission.first[1]} EXP。２かいめからも ${mission.repeat[0]} G / ${mission.repeat[1]} EXP！`);document.getElementById("jr-content").className="";
+        if(id==="shoot"){jrRun.score=0;jrRun.targets=Array.from({length:6},(_,i)=>({value:i+1,x:65+i*102,y:90+(i%2)*95,phase:i}));jrShootQuestion();const canvas=document.createElement("canvas");canvas.id="jr-mini-canvas";canvas.width=660;canvas.height=300;canvas.setAttribute("aria-label","こたえの すうじを タッチして まとあて");canvas.addEventListener("click",jrShootPointer);document.getElementById("jr-content").append(canvas);document.getElementById("jr-instruction").textContent="30びょうで ７かい、こたえの すうじを タッチしよう！";}
+        if(id==="soko"){jrRun.hero={x:2,y:4};jrRun.box={x:3,y:3};jrRun.history=[];document.getElementById("jr-instruction").textContent="はこを おして ★へ！ 人の となりの マスか、やじるしを タッチしよう。";jrDrawSoko();for(const [label,dir]of[["↑","up"],["←","left"],["↓","down"],["→","right"]])jrTool(label,()=>jrSokoMove(dir));jrTool("ひとつ もどす",()=>{if(jrRun&&!jrRun.finished&&jrRun.history.length){const s=jrRun.history.pop();jrRun.hero=s.hero;jrRun.box=s.box;jrDrawSoko();}});}
+        if(id==="memory"){const ids=["dog","flower","moon","stone","bamboo","river"];jrRun.cards=shuffleAdventure([...ids,...ids]);jrRun.flips=[];jrRun.matched=[];jrRun.turns=0;document.getElementById("jr-instruction").textContent="おなじ しゃしんを ２まいずつ みつけよう。６ペアで クリア！";jrDrawMemory();}
+        if(id==="simon"){jrRun.pattern=Array.from({length:3},()=>Math.floor(Math.random()*4));jrRun.round=1;jrRun.index=0;jrRun.showAt=performance.now()+500;jrRun.showing=true;jrRun.lastFlash=-2;document.getElementById("jr-instruction").textContent="ひかる じゅんばんを おぼえて、まねしよう！ ３ラウンドで クリア。";const grid=document.createElement("div");grid.className="jr-grid jr-simon";["あか","あお","きいろ","みどり"].forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.textContent=name;b.style.background=["#e58c8b","#83bed9","#f2d77d","#93c47d"][i];b.addEventListener("click",()=>jrSimonPress(i));grid.append(b);});document.getElementById("jr-content").append(grid);}
+        if(id==="lights"){jrRun.lights=Array(9).fill(true);do{jrRun.lights.fill(true);for(let i=0;i<6;i++)jrToggleLights(Math.floor(Math.random()*9));}while(jrRun.lights.every(Boolean));document.getElementById("jr-instruction").textContent="タッチした マスと となりの あかりが かわるよ。９つ ぜんぶ つけよう！";jrDrawLights();jrTool("ヒント",()=>{const move=jrLightsHint(jrRun?.lights);document.getElementById("jr-status").textContent=move<0?"ぜんぶ ついたよ！":`${Math.floor(move/3)+1}だんめ、${move%3+1}れつめを ためしてみよう。`;});}
+        jrTool("やりなおす",()=>jrStartMission(id));
+      }
+
+      function jrShootQuestion(){if(!jrRun)return;const answer=1+Math.floor(Math.random()*6),a=Math.floor(Math.random()*(answer+1));jrRun.answer=answer;jrRun.prompt=`${a} ＋ ${answer-a} = ？`;}
+
+      function jrShootPointer(event){if(!jrRun||jrRun.id!=="shoot"||jrRun.finished)return;const canvas=event.currentTarget,b=canvas.getBoundingClientRect(),x=(event.clientX-b.left)*660/b.width,y=(event.clientY-b.top)*300/b.height,t=(performance.now()-jrRun.start)/1000;const hit=jrRun.targets.find(p=>Math.hypot(x-(p.x+Math.sin(t*1.1+p.phase)*18),y-(p.y+Math.sin(t*1.7+p.phase)*15))<33);if(!hit)return;jrRun.shot={x,y,at:performance.now()};if(hit.value===jrRun.answer){jrRun.score++;if(jrRun.score>=7){jrWinMission("shoot");return;}jrShootQuestion();}else document.getElementById("jr-status").textContent="おしい！ こたえを みて、もういちど！";}
+
+      function jrDrawSoko(){const grid=document.createElement("div");grid.className="jr-grid jr-soko";for(let y=0;y<7;y++)for(let x=0;x<7;x++){const b=document.createElement("button"),wall=x===0||y===0||x===6||y===6||(x===2&&y===2);b.type="button";b.className=wall?"wall":x===5&&y===2?"goal":"";if(jrRun.hero.x===x&&jrRun.hero.y===y){const image=document.createElement("canvas");image.width=64;image.height=80;image.className="jr-mini-hero";drawAdventureSprite(image.getContext("2d"),8,31,"hero",null,0,3);b.append(image);}else if(jrRun.box.x===x&&jrRun.box.y===y){const face=document.createElement("span");face.className="jr-box";face.textContent="×";b.append(face);}else if(x===5&&y===2)b.textContent="★";b.setAttribute("aria-label",`たて${y} よこ${x}`);b.addEventListener("click",()=>{const dx=x-jrRun.hero.x,dy=y-jrRun.hero.y;if(Math.abs(dx)+Math.abs(dy)===1)jrSokoMove(dx===1?"right":dx===-1?"left":dy===1?"down":"up");});grid.append(b);}document.getElementById("jr-content").replaceChildren(grid);}
+
+      function jrSokoMove(dir){if(!jrRun||jrRun.id!=="soko"||jrRun.finished)return;const [dx,dy]={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[dir],p={x:jrRun.hero.x+dx,y:jrRun.hero.y+dy},floor=p=>p.x>0&&p.y>0&&p.x<6&&p.y<6&&!(p.x===2&&p.y===2);if(!floor(p))return;const pushing=p.x===jrRun.box.x&&p.y===jrRun.box.y,next={x:p.x+dx,y:p.y+dy};if(pushing&&!floor(next))return;jrRun.history.push({hero:{...jrRun.hero},box:{...jrRun.box}});jrRun.hero=p;if(pushing)jrRun.box=next;jrDrawSoko();if(jrRun.box.x===5&&jrRun.box.y===2)jrWinMission("soko");}
+
+      function jrDrawMemory(){const grid=document.createElement("div");grid.className="jr-grid jr-memory";jrRun.cards.forEach((id,i)=>{const b=document.createElement("button");b.type="button";b.classList.toggle("matched",jrRun.matched.includes(i));b.setAttribute("aria-label","カード "+(i+1));if(jrRun.flips.includes(i)||jrRun.matched.includes(i)){const img=document.createElement("img");img.src=quizPhotos[id].src;img.alt="しゃしん";b.append(img);}else b.textContent="？";b.addEventListener("click",()=>jrMemoryFlip(i));grid.append(b);});document.getElementById("jr-content").replaceChildren(grid);}
+
+      function jrMemoryFlip(i){if(!jrRun||jrRun.id!=="memory"||jrRun.finished||jrRun.hideAt||jrRun.matched.includes(i)||jrRun.flips.includes(i))return;jrRun.flips.push(i);if(jrRun.flips.length===2){jrRun.turns++;const[a,b]=jrRun.flips;if(jrRun.cards[a]===jrRun.cards[b]){jrRun.matched.push(a,b);jrRun.flips=[];}else jrRun.hideAt=performance.now()+900;}jrDrawMemory();if(jrRun.matched.length===12)jrWinMission("memory");}
+
+      function jrSimonPress(i){if(!jrRun||jrRun.id!=="simon"||jrRun.finished||jrRun.showing)return;if(jrRun.pattern[jrRun.index]!==i){jrRun.index=0;jrRun.showAt=performance.now()+700;jrRun.showing=true;document.getElementById("jr-status").textContent="もういちど、ひかる じゅんばんを みよう！";return;}jrRun.index++;if(jrRun.index===jrRun.pattern.length){if(jrRun.round===3){jrWinMission("simon");return;}jrRun.round++;jrRun.pattern.push(Math.floor(Math.random()*4));jrRun.index=0;jrRun.showing=true;jrRun.showAt=performance.now()+600;}}
+
+      function jrToggleLights(i){if(!jrRun?.lights)return;for(const j of[i,i%3>0?i-1:-1,i%3<2?i+1:-1,i>=3?i-3:-1,i<6?i+3:-1])if(j>=0)jrRun.lights[j]=!jrRun.lights[j];}
+
+      function jrDrawLights(){const grid=document.createElement("div");grid.className="jr-grid jr-lights";jrRun.lights.forEach((on,i)=>{const b=document.createElement("button");b.type="button";b.classList.toggle("on",on);b.textContent=on?"☀":"○";b.setAttribute("aria-label",`あかり ${i+1} ${on?"ついた":"きえた"}`);b.addEventListener("click",()=>{if(jrRun.finished)return;jrToggleLights(i);jrDrawLights();if(jrRun.lights.every(Boolean))jrWinMission("lights");});grid.append(b);});document.getElementById("jr-content").replaceChildren(grid);}
+
+      function jrLightsHint(lights){if(!lights)return-1;const initial=lights.reduce((a,v,i)=>a|(v?1<<i:0),0);if(initial===511)return-1;const q=[{s:initial,first:-1}],seen=new Set([initial]);for(let n=0;n<q.length;n++)for(let i=0;i<9;i++){let s=q[n].s;for(const j of[i,i%3>0?i-1:-1,i%3<2?i+1:-1,i>=3?i-3:-1,i<6?i+3:-1])if(j>=0)s^=1<<j;const first=q[n].first<0?i:q[n].first;if(s===511)return first;if(!seen.has(s)){seen.add(s);q.push({s,first});}}return-1;}
+
+      function jrUpdateMission(time){const run=jrRun;if(!run||run.finished)return;
+        if(run.id==="memory"&&run.hideAt&&time>=run.hideAt){run.hideAt=0;run.flips=[];jrDrawMemory();}
+        if(run.id==="simon"&&run.showing){const elapsed=time-run.showAt,index=elapsed<0?-1:Math.floor(elapsed/650),flash=index<run.pattern.length&&elapsed>=0&&elapsed%650<400?run.pattern[index]:-1;if(flash!==run.lastFlash){document.querySelectorAll('.jr-simon button').forEach((b,i)=>b.classList.toggle('lit',i===flash));run.lastFlash=flash;}if(elapsed>=run.pattern.length*650){run.showing=false;document.getElementById("jr-status").textContent=`ラウンド ${run.round}/3。いまの じゅんばんで タッチ！`;}}
+        if(run.id==="shoot"){const remaining=Math.max(0,30-(time-run.start)/1000),canvas=document.getElementById("jr-mini-canvas");if(!canvas)return;const c=canvas.getContext("2d"),t=(time-run.start)/1000;c.fillStyle="#c9e3aa";c.fillRect(0,0,660,300);c.fillStyle="#a8c68a";c.fillRect(0,245,660,55);c.textAlign="center";c.font="bold 24px sans-serif";for(const p of run.targets){const x=p.x+Math.sin(t*1.1+p.phase)*18,y=p.y+Math.sin(t*1.7+p.phase)*15;c.fillStyle="#fff7d6";c.strokeStyle="#6a805d";c.lineWidth=3;c.beginPath();c.arc(x,y,32,0,Math.PI*2);c.fill();c.stroke();c.fillStyle="#35574c";c.fillText(p.value,x,y+8);}if(run.shot&&time-run.shot.at<240){c.strokeStyle="#c77b48";c.beginPath();c.arc(run.shot.x,run.shot.y,38,0,Math.PI*2);c.stroke();}document.getElementById("jr-status").textContent=`${run.prompt}　あと ${remaining.toFixed(1)}びょう　${run.score}/7 ヒット`;if(remaining<=0){run.finished=true;document.getElementById("jr-status").textContent="じかんに なったよ。もういちど ちょうせんしよう！";}}
+      }
+
+      function jrSideConfig(stage){
+        const castle=stage==="castle",ground=castle?[[0,950],[1060,2600]]:[[0,700],[820,1450],[1570,2350],[2490,3240],[3370,4100],[4240,5000],[5140,6000]],width=castle?2600:6000;
+        const platforms=castle?[{x:550,w:160,y:320},{x:1350,w:180,y:325},{x:1600,w:150,y:270}]:[{x:420,w:160,y:320},{x:1050,w:160,y:330},{x:1190,w:160,y:260},{x:1900,w:200,y:315},{x:2840,w:190,y:320},{x:3600,w:170,y:315},{x:4500,w:190,y:325},{x:5350,w:170,y:315}];
+        const raw=castle?[[450,"stone",60],[1350,"pup",60],[1770,"bat",48],[2240,"wolf",220]]:[[520,"slime",40],[1100,"moss",46],[1780,"bat",42],[2130,"boar",55],[2850,"mushroom",50],[3650,"pup",60],[4620,"stone",60],[5480,"pup",65]];
+        const monsters=raw.map(([x,kind,hp],i)=>({id:`${stage}-enemy-${i}`,x,spawn:x,y:kind==="bat"?320:400,kind,hp,maxHp:hp,boss:castle&&i===raw.length-1,color:kind==="wolf"||kind==="pup"?"#9da6af":kind==="moss"?"#96b864":kind==="mushroom"?"#df8c79":kind==="stone"?"#a4abb0":"#69bdba",direction:1,cooldown:0,phase:0,telegraph:0}));
+        const pickups=[];for(let x=250,i=0;x<width-250;x+=290,i++){if(ground.some(([a,b])=>x>a+30&&x<b-30))pickups.push({id:`${stage}-coin-${i}`,x,y:365,kind:"coin",value:5});}for(let i=0;i<platforms.length;i++)pickups.push({id:`${stage}-high-${i}`,x:platforms[i].x+70,y:platforms[i].y-35,kind:i%3===0?"potion":"coin",value:8});
+        return {stage,width,ground,platforms,monsters,pickups};
+      }
+
+      function jrStartSide(stage){const config=jrSideConfig(stage),checkpoint=journeyState.checkpoints[stage];jrSide={...config,x:checkpoint.x,y:checkpoint.y,vx:0,vy:0,onGround:true,hp:Math.max(1,Math.min(journeyState.sideHp,adventureMaxHp())),face:1,attackAt:-9999,invulnUntil:0,autoX:null,target:null,waves:[],floats:[],lastSave:0,guard:false};jrSide.monsters=jrSide.monsters.filter(m=>!journeyState.defeated.includes(m.id));jrSide.pickups=jrSide.pickups.filter(p=>!journeyState.picked.includes(p.id));}
+
+      function jrSideGround(x){return jrSide.ground.find(([a,b])=>x>=a&&x<=b);}
+
+      function jrJump(){if(jrSide&&jrModal.hidden&&jrSide.onGround){jrSide.vy=-570;jrSide.onGround=false;}}
+
+      function jrSideAttack(time=performance.now()){
+        const s=jrSide;if(!s||!jrModal.hidden||time-s.attackAt<430)return;s.attackAt=time;const damage=7+jrWeapon().attack+(adventureLevel()-1)*2;
+        for(const m of s.monsters){if(m.hp<=0||Math.abs(m.x-s.x)>85||Math.abs(m.y-s.y)>85||(m.x-s.x)*s.face<-24)continue;m.hp=Math.max(0,m.hp-damage);m.hurtAt=time;s.floats.push({x:m.x,y:m.y-65,text:`−${damage}`,at:time,color:"#a7672a"});if(m.hp===0)jrSideKill(m);}
+      }
+
+      function jrSideKill(monster){if(journeyState.defeated.includes(monster.id))return;journeyState.defeated.push(monster.id);const gold=monster.boss?90:14,xp=monster.boss?110:22;jrReward(gold,xp);jrSay(monster.boss?"いせきの おやぶんを たおした！ みぎの ひかる もんへ すすもう！":`${gold} G と ${xp} EXP！ そうびの ちからで まものを たおした！`);}
+
+      function jrSideHurt(amount,time){const s=jrSide;if(!s||time<s.invulnUntil)return;const damage=Math.max(1,Math.floor((amount-jrDefense())*(s.guard ? .25 : 1)));s.hp=Math.max(0,s.hp-damage);s.invulnUntil=time+1050;s.floats.push({x:s.x,y:s.y-70,text:s.guard?`ガード −${damage}`:`−${damage}`,at:time,color:s.guard?"#3b8ca6":"#b45e5e"});journeyState.sideHp=Math.max(1,s.hp);if(s.hp===0)jrSideRespawn();saveProgress();jrHud();}
+
+      function jrSideRespawn(){const stage=journeyState.stage;journeyState.sideHp=adventureMaxHp();jrStartSide(stage);jrSide.invulnUntil=performance.now()+1800;jrSay("チェックポイントで かいふく！ おかね、EXP、ひろったものは そのままだよ。");saveProgress();jrHud();}
+
+      function jrUsePotion(){const s=jrSide;if(!s||!jrModal.hidden)return false;if(s.hp>=adventureMaxHp()){jrSay("HPは まんたんだよ。くすりは あとで つかおう。");return false;}if(journeyState.potions>0){journeyState.potions--;s.hp=Math.min(adventureMaxHp(),s.hp+24);}else if(journeyState.fullPotions>0){journeyState.fullPotions--;s.hp=adventureMaxHp();}else{jrSay("くすりが ないよ。むらの どうぐやで かえるよ！");return false;}journeyState.sideHp=s.hp;s.floats.push({x:s.x,y:s.y-65,text:"HP かいふく！",at:performance.now(),color:"#53894d"});saveProgress();jrHud();return true;}
+
+      function jrUpdateSide(dt,time){
+        const s=jrSide;if(!s)return;s.guard=jrHeld.has("guard");let move=jrHeld.has("left")?-1:jrHeld.has("right")?1:0;
+        const target=s.monsters.find(m=>m.id===s.target&&m.hp>0);if(target){if(Math.abs(target.x-s.x)>60){s.autoX=target.x;}else{s.autoX=null;s.face=target.x>=s.x?1:-1;if(Math.abs(target.y-s.y)>75&&s.onGround)jrJump();jrSideAttack(time);}}else if(s.target){s.target=null;s.autoX=null;}
+        if(!move&&s.autoX!==null){if(Math.abs(s.autoX-s.x)>12)move=s.autoX>s.x?1:-1;else s.autoX=null;}
+        if(move&&s.onGround&&s.autoX!==null){const ahead=s.x+move*42;if(!jrSideGround(ahead))jrJump();}
+        s.vx=move*(s.guard?105:240);if(move)s.face=move;if(jrHeld.has("attack"))jrSideAttack(time);
+        const oldY=s.y;s.vy+=1350*dt;s.x=Math.max(24,Math.min(s.width-30,s.x+s.vx*dt));s.y+=s.vy*dt;s.onGround=false;
+        const surfaces=[...s.ground.map(([a,b])=>({x:a,w:b-a,y:400})),...s.platforms];for(const p of surfaces)if(s.x>=p.x-8&&s.x<=p.x+p.w+8&&oldY<=p.y+3&&s.y>=p.y&&s.vy>=0){s.y=p.y;s.vy=0;s.onGround=true;break;}
+        if(s.y>650){jrSideRespawn();return;}
+        for(const m of s.monsters){if(m.hp<=0)continue;const distance=s.x-m.x;
+          if(m.boss){if(time>m.cooldown&&!m.telegraph){m.telegraph=time+550;m.cooldown=time+2400;}if(m.telegraph&&time>=m.telegraph){m.telegraph=0;s.waves.push({x:m.x,y:400,vx:distance<0?-210:210});}if(Math.abs(distance)>75&&Math.abs(distance)<340)m.x+=Math.sign(distance)*62*dt;m.x=Math.max(2050,Math.min(2450,m.x));}
+          else if(Math.abs(distance)<700){const dir=Math.abs(distance)<210?Math.sign(distance):m.direction;m.x+=dir*(m.kind==="boar"?88:50)*dt;if(m.x<m.spawn-90){m.x=m.spawn-90;m.direction=1;}if(m.x>m.spawn+90){m.x=m.spawn+90;m.direction=-1;}if(m.kind==="bat")m.y=320+Math.sin(time/330+m.spawn)*20;}
+          if(Math.abs(m.x-s.x)<29&&Math.abs(m.y-s.y)<45)jrSideHurt(m.boss?12:7,time);
+        }
+        if(jrSide!==s)return;
+        for(const wave of s.waves){wave.x+=wave.vx*dt;if(Math.abs(wave.x-s.x)<22&&s.y>375)jrSideHurt(12,time);}if(jrSide!==s)return;s.waves=s.waves.filter(w=>Math.abs(w.x-s.x)<900);
+        for(const p of s.pickups)if(!journeyState.picked.includes(p.id)&&Math.abs(p.x-s.x)<29&&Math.abs(p.y-(s.y-28))<45){journeyState.picked.push(p.id);if(p.kind==="potion"){journeyState.potions=Math.min(9,journeyState.potions+1);jrSay("かいふくの くすりを ひろった！");saveProgress();}else jrReward(p.value,0);s.floats.push({x:p.x,y:p.y-15,text:p.kind==="potion"?"くすり +1":`+${p.value} G`,at:time,color:"#7f7e35"});}
+        if(time-s.lastSave>700&&s.onGround){const ground=jrSideGround(s.x);if(ground&&s.x>=ground[0]+55&&s.x<=ground[1]-55)journeyState.checkpoints[s.stage]={x:s.x,y:s.y};journeyState.sideHp=s.hp;s.lastSave=time;scheduleProgressSave();jrHud();}
+        if(s.x>s.width-150){if(s.stage==="road"){journeyState.roadClear=true;journeyState.sideHp=s.hp;jrOpenStage("castle");jrSay("だい４しょう！ いせきの おくの おやぶんを たおそう！");return;}if(!s.monsters.some(m=>m.boss&&m.hp>0)){if(!journeyState.castleClear){journeyState.castleClear=true;jrReward(100,100);}jrOpenStage("ending");return;}s.x=s.width-160;s.autoX=null;jrSay("もんは しまっているよ。いせきの おやぶんを たおそう！");}
+        s.floats=s.floats.filter(f=>time-f.at<1100);
+      }
+
+      function jrDrawSide(time){
+        const s=jrSide;if(!s)return;const c=jrPrepareCanvas(),view=jrView;view.x=Math.max(0,Math.min(s.width-view.w,s.x-view.w*.38));view.y=0;view.oy=(jrCanvas.clientHeight*.64)/view.z-400;
+        c.fillStyle=s.stage==="castle"?"#b9d9dd":"#b9e4df";c.fillRect(0,0,view.w,view.h);
+        withAdventureDrawing(c,()=>{for(let i=-1;i<8;i++){const x=i*240-(view.x*.2)%240;polygon([[x,view.h*.67],[x+150,view.oy+100],[x+300,view.h*.67]],s.stage==="castle"?"#8da99d":"#a5ca95",null);}for(let i=0;i<6;i++){const x=i*180-(view.x*.12)%180;oval(x,view.oy+55+(i%2)*35,75,20,"#eff6e5");}});
+        c.save();c.translate(-view.x,view.oy);withAdventureDrawing(c,()=>{
+          for(const [a,b]of s.ground){if(b<view.x-80||a>view.x+view.w+80)continue;rect(a,400,b-a,Math.max(400,view.h),s.stage==="castle"?"#a99778":"#bb9b6a");rect(a,397,b-a,10,"#77ad62");rect(a,410,b-a,4,"#d1b47c");for(let x=Math.max(a,Math.floor(view.x/48)*48);x<b&&x<view.x+view.w+48;x+=48)rect(x+14,440,6,3,"#a98b63");}
+          for(const p of s.platforms){rect(p.x,p.y,p.w,17,"#a8a38c");rect(p.x,p.y-4,p.w,7,"#8bba72");rect(p.x+4,p.y+7,p.w-8,2,"#d4ccb1");}
+          for(let x=Math.floor(view.x/300)*300;x<view.x+view.w+300;x+=300){const ground=s.ground.some(([a,b])=>x>=a&&x<=b);if(ground){rect(x,320,13,80,"#aa8150");oval(x-35,268,82,63,"#80b86b","#568a58");oval(x-20,248,62,48,"#97c67b","#568a58");}}
+          const door=s.width-90;polygon([[door-22,400],[door-22,325],[door-9,311],[door+18,311],[door+29,325],[door+29,400]],"#a9a180","#63715c",3);rect(door-10,328,26,72,s.stage==="road"||!s.monsters.some(m=>m.boss&&m.hp>0)?"#fff0ad":"#736a58");
+        });
+        for(const p of s.pickups)if(!journeyState.picked.includes(p.id)&&p.x>view.x-30&&p.x<view.x+view.w+30)withAdventureDrawing(c,()=>{if(p.kind==="coin"){oval(p.x-8,p.y-10+Math.sin(time/250)*2,16,20,"#ffde75","#aa8640");rect(p.x-1,p.y-5,2,10,"#fff6ba");}else{rect(p.x-6,p.y-5,13,17,"#a8d7b2");strokeRect(p.x-6,p.y-5,13,17,"#5d8971",2);rect(p.x-4,p.y-10,9,6,"#a2815d");}});
+        for(const m of s.monsters)if(m.hp>0&&m.x>view.x-100&&m.x<view.x+view.w+100){c.save();if(m.hurtAt&&time-m.hurtAt<180)c.globalAlpha=.65;drawAdventureSprite(c,m.x-24,m.y-(m.boss?64:45),m.kind,m.color,time,m.boss?4.4:3);c.restore();if(m.boss||m.hp<m.maxHp){withAdventureDrawing(c,()=>{rect(m.x-30,m.y-85,60,6,"#7f7766");rect(m.x-30,m.y-85,60*m.hp/m.maxHp,"#d7836b");});}if(m.telegraph){c.font="bold 21px sans-serif";c.textAlign="center";c.fillStyle="#a6583d";c.fillText("！ ジャンプ！",m.x,m.y-100);}}
+        const attacking=time-s.attackAt<330;c.save();if(time<s.invulnUntil&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)c.globalAlpha=.65;if(s.face<0){c.translate(s.x*2,0);c.scale(-1,1);}drawAdventureSprite(c,s.x-24,s.y-45,"hero",null,time,3,{moving:Math.abs(s.vx)>0,swing:attacking?-1.1+(time-s.attackAt)/330*2.5:-.22});c.restore();drawAdventureSprite(c,s.x-s.face*65-20,s.y-40,"fox",null,time,2.5,{moving:Math.abs(s.vx)>0});
+        withAdventureDrawing(c,()=>{if(attacking){ctx.strokeStyle="#ffe4a0";ctx.lineWidth=7;ctx.beginPath();ctx.arc(s.x+s.face*24,s.y-28,42,s.face>0?-1.2:1.9,s.face>0?1.2:4.4);ctx.stroke();}if(s.guard){oval(s.x-29,s.y-67,60,68,"rgba(124,210,231,.3)","#529fb8");}for(const w of s.waves){oval(w.x-13,385,27,17,"#ddc58a","#a58c61");}});
+        c.textAlign="center";c.font="bold 17px sans-serif";for(const f of s.floats){c.fillStyle=f.color;c.fillText(f.text,f.x,f.y-(time-f.at)/45);}c.restore();
+      }
+
+      function jrSidePointer(event){if(!jrSide||!jrModal.hidden)return;const b=jrCanvas.getBoundingClientRect(),x=(event.clientX-b.left)/jrView.z+jrView.x,y=(event.clientY-b.top)/jrView.z-jrView.oy;const monster=jrSide.monsters.filter(m=>m.hp>0).find(m=>Math.abs(m.x-x)<50&&Math.abs(m.y-25-y)<65);jrSide.autoX=Math.max(25,Math.min(jrSide.width-60,x));jrSide.target=monster?.id||null;}
+
+      document.getElementById("jr-close").addEventListener("click",jrCloseModal);
+      document.getElementById("jr-guide").addEventListener("click",jrOpenGuide);
+      document.getElementById("jr-bag").addEventListener("click",()=>jrOpenShop(journeyState.stage==="village"));
+      document.getElementById("jr-back").addEventListener("click",()=>{if(journeyState.stage==="village"){jrCloseModal();returnAdventureMap();}else jrOpenStage("village");});
+      document.getElementById("jr-ending-return").addEventListener("click",()=>jrOpenStage("village"));
+      document.getElementById("jr-jump").addEventListener("click",jrJump);
+      document.getElementById("jr-potion").addEventListener("click",jrUsePotion);
+      jrCanvas.addEventListener("click",event=>{if(journeyState.stage==="village")jrVillagePointer(event);else if(["road","castle"].includes(journeyState.stage))jrSidePointer(event);});
+      document.querySelectorAll("[data-jr-hold]").forEach(button=>{button.addEventListener("pointerdown",event=>{event.preventDefault();if(!jrModal.hidden)return;button.setPointerCapture(event.pointerId);jrHeld.add(button.dataset.jrHold);button.classList.add("held");if(button.dataset.jrHold==="attack")jrSideAttack();if(jrSide&&["left","right"].includes(button.dataset.jrHold)){jrSide.autoX=null;jrSide.target=null;}});for(const name of["pointerup","pointercancel","lostpointercapture"])button.addEventListener(name,()=>{jrHeld.delete(button.dataset.jrHold);button.classList.remove("held");});});
+      window.addEventListener("blur",()=>{jrHeld.clear();document.querySelectorAll('[data-jr-hold]').forEach(b=>b.classList.remove('held'));});
+
       function saveProgress() {
         if (saveTimer) {
           window.clearTimeout(saveTimer);
@@ -1929,7 +2185,8 @@
           ruinsGateOpen,
           ruinsRewardClaimed,
           ruinsAdventure: adventureState,
-          quizHistory
+          quizHistory,
+          journeyState
         };
         try {
           window.localStorage.setItem(SAVE_KEY, JSON.stringify(save));
@@ -2008,6 +2265,7 @@
           ruinsRewardClaimed = save.ruinsRewardClaimed && ruinsGateOpen;
           // Optional chapter-two data cannot invalidate a valid village/forest save.
           adventureState = ruinsGateOpen ? normalizeAdventureState(save.ruinsAdventure) : newAdventureState();
+          restoreJourneyState(save.journeyState);
           restoreQuizHistory(save.quizHistory);
           if (adventureComplete()) ruinsRewardClaimed = true;
           crystalStep = save.crystalStep;
@@ -2608,6 +2866,7 @@
         gateOpeningAt = 0;
         forestCompletionStartedAt = 0;
         adventureState = newAdventureState();
+        journeyState = newJourneyState();
         quizHistory = {version:1,ids:[],topics:[],bag:[],families:[]};
         adventureBattle = null;
         stopMovement(false);
@@ -2634,8 +2893,6 @@
 
       adventureCanvas.addEventListener("click",handleAdventurePointer);
       document.getElementById("adventure-fullscreen").addEventListener("click",async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await app.requestFullscreen();}catch(error){adventureNotice("ゲームは がめんいっぱいに ひろがっているよ。");}});
-      document.getElementById("chapter-return").addEventListener("click",returnAdventureMap);
-      document.getElementById("chapter-talk").addEventListener("click",()=>{document.getElementById("chapter-greeting").textContent="むらびと：もりを まもってくれて、ありがとう！ きみと コロを かんげいするよ！";});
       loadProgress();
       document.getElementById("hud-location").textContent = player.x >= 25 ? "🌲 ふしぎな森" : "🌈 にじいろ村";
       updateDpi();
