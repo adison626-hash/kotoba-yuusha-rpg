@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <meta name="theme-color" content="#8ddcf1">
   <meta name="description" content="にじいろ村から ふしぎな森へ。三つの地図のかけらを集め、木の剣を手に入れて、算数と漢字で戦おう。">
-  <title>ことば勇者の冒険 3.1-4｜小学4・5年チャレンジ</title>
+  <title>ことば勇者の冒険 3.1-4｜小学4年チャレンジ</title>
   <style>
     :root {
       color-scheme: light;
@@ -250,7 +250,7 @@
   </style>
 </head>
 <body>
-  <span class="g45-version">3.1-4｜小学4・5年</span>
+  <span class="g45-version">3.1-4｜小学4年</span>
   <main class="app" id="app">
     <canvas id="game" tabindex="0" aria-label="にじいろ村とふしぎな森。矢印キーまたはWASDで移動します。"></canvas>
     <div class="hud">
@@ -1880,20 +1880,20 @@
           const answer=frac(a*e+b*d,d*e);add("unlike-fraction","小5｜分数の橋",`${a}/${d} ＋ ${b}/${e} ＝？（約分した答え）`,answer,[frac(a+b,d+e),frac(a*e+b*d+1,d*e),frac(a*e+b*d-1,d*e),frac(a*e+b*d,d*e*2)],{feedback:`共通の分母にそろえると ${a*e}/${d*e}＋${b*d}/${d*e}。約分して ${answer}。`,seconds:35});
         }
         for(let a=4;a<=30;a++)for(let gap=1;gap<=8;gap++)num("average","小5｜探検隊の記録",`3日間に見つけた結晶は${a}個、${a+gap}個、${a+gap*2}個。1日平均は？`,a+gap,"個",{visual:{kind:"g45bars",values:[a,a+gap,a+gap*2],labels:["1日目","2日目","3日目"]},feedback:`合計${a*3+gap*3}個÷3日＝${a+gap}個。`,seconds:30});
-        for(let a=3;a<=30;a++)for(let b=2;b<=9;b++)num("pattern","小4・5｜暗号の数列",`暗号：${a}、${a+b}、${a+b*2}、□、${a+b*4}。□は？`,a+b*3,"",{feedback:`${b}ずつ増える。${a+b*2}＋${b}＝${a+b*3}。`});
+        for(let a=3;a<=30;a++)for(let b=2;b<=9;b++)num("pattern","小4｜暗号の数列",`暗号：${a}、${a+b}、${a+b*2}、□、${a+b*4}。□は？`,a+b*3,"",{feedback:`${b}ずつ増える。${a+b*2}＋${b}＝${a+b*3}。`});
         for(let cm=125;cm<=1975;cm+=25)num("units","小4｜長さの変身",`${cm}cmのロープは何m？`,cm/100," m",{feedback:`100cm＝1m。${cm}÷100＝${cm/100}m。`});
         for(let a=6;a<=30;a++)for(let b=4;b<=20;b+=2){
           num("chart","小4｜宝のグラフ",`図は集めた宝石の数。赤と青を合わせると何個？`,a+b,"個",{visual:{kind:"g45bars",values:[a,b,a+3],labels:["赤","青","緑"]},feedback:`赤${a}個＋青${b}個＝${a+b}個。`});
           num("difference-chart","小4｜グラフ探偵",`図は集めた宝石の数。緑は青より何個多い？`,a+b-b,"個",{visual:{kind:"g45bars",values:[a,a+b,b],labels:["赤","緑","青"]},feedback:`緑${a+b}個−青${b}個＝${a}個。`});
         }
-        for(let people=3;people<=12;people++)for(let price=24;price<=84;price+=6){const change=50+people*7+price/6,total=people*price+change;num("shopping","小4・5｜旅の買い物",`${people}人が1本${price}Gのジュースを1本ずつ買う。${total}G払うと、おつりは？`,change," G",{feedback:`代金は${people}×${price}＝${people*price}G。${total}−${people*price}＝${change}G。`,seconds:30});}
+        for(let people=3;people<=12;people++)for(let price=24;price<=84;price+=6){const change=50+people*7+price/6,total=people*price+change;num("shopping","小4｜旅の買い物",`${people}人が1本${price}Gのジュースを1本ずつ買う。${total}G払うと、おつりは？`,change," G",{feedback:`代金は${people}×${price}＝${people*price}G。${total}−${people*price}＝${change}G。`,seconds:30});}
         const words=[
           ["観察","かんさつ","葉をよく観察する。"],["季節","きせつ","季節の変化を楽しむ。"],["努力","どりょく","目標に向かって努力する。"],["協力","きょうりょく","仲間と協力して橋を作る。"],["健康","けんこう","健康のために早くねる。"],["結果","けっか","実験の結果をまとめる。"],["説明","せつめい","道具の使い方を説明する。"],["関係","かんけい","二つの数の関係を調べる。"],["成長","せいちょう","植物の成長を記録する。"],["記録","きろく","旅の日記に記録を残す。"],["選手","せんしゅ","選手が元気に走る。"],["約束","やくそく","友達との約束を守る。"],["希望","きぼう","希望をもって進む。"],["歴史","れきし","村の歴史を学ぶ。"],["材料","ざいりょう","料理の材料を集める。"],["特別","とくべつ","今日は特別な日だ。"],["周囲","しゅうい","周囲の安全を確かめる。"],["信号","しんごう","信号が青に変わった。"],["競争","きょうそう","友達と走って競争する。"],["共通","きょうつう","二つの図形の共通点を探す。"],["伝説","でんせつ","古い伝説を読む。"],["勇気","ゆうき","勇気を出して話す。"],["種類","しゅるい","花の種類を調べる。"],["景色","けしき","山の景色を楽しむ。"],["飛行","ひこう","鳥の飛行を観察する。"],["満月","まんげつ","空に満月が見える。"],["印刷","いんさつ","地図を印刷する。"],["案内","あんない","村の中を案内する。"],["航海","こうかい","船で長い航海に出る。"],["冷静","れいせい","冷静に考えて答える。"],
           ["判断","はんだん","情報を集めて判断する。"],["準備","じゅんび","冒険の準備をする。"],["原因","げんいん","橋がこわれた原因を調べる。"],["条件","じょうけん","参加の条件を読む。"],["技術","ぎじゅつ","新しい技術を身につける。"],["知識","ちしき","植物の知識を増やす。"],["経験","けいけん","旅で多くの経験を積む。"],["豊富","ほうふ","この森は木の実が豊富だ。"],["防災","ぼうさい","村で防災の訓練をする。"],["移動","いどう","次の町へ移動する。"],["河川","かせん","河川の水を調べる。"],["森林","しんりん","森林を大切に守る。"],["資料","しりょう","旅に必要な資料を集める。"],["報告","ほうこく","見つけたことを報告する。"],["責任","せきにん","自分の仕事に責任をもつ。"],["性質","せいしつ","水の性質を調べる。"],["平均","へいきん","点数の平均を求める。"],["比率","ひりつ","赤い宝石の比率を求める。"],["費用","ひよう","旅にかかる費用を計算する。"],["修理","しゅうり","こわれた道具を修理する。"],["構造","こうぞう","橋の構造を調べる。"],["燃料","ねんりょう","船の燃料を用意する。"],["効率","こうりつ","仕事の効率をよくする。"],["適切","てきせつ","場面に適切な言葉を選ぶ。"],["複雑","ふくざつ","複雑な道を地図で確かめる。"],["清潔","せいけつ","部屋を清潔に保つ。"],["増加","ぞうか","花の数が増加した。"],["減少","げんしょう","池の水が減少した。"],["往復","おうふく","村と森を往復する。"],["提案","ていあん","新しい作戦を提案する。"],["許可","きょか","村長の許可をもらう。"],["禁止","きんし","立ち入り禁止の場所をよける。"],["所属","しょぞく","探検隊に所属している。"],["独立","どくりつ","独立して仕事を始める。"],["解決","かいけつ","問題を解決する。"],["証明","しょうめい","正しいことを証明する。"],["飼育","しいく","犬の飼育を手伝う。"],["耕作","こうさく","畑の耕作をする。"],["貿易","ぼうえき","外国との貿易について学ぶ。"],["輸送","ゆそう","荷物を船で輸送する。"]
         ];
         for(const [word,reading,sentence]of words){
-          add("reading","小4・5｜ことばの探検",`${sentence}\n「${word}」の読み方は？`,reading,words.map(w=>w[1]),{feedback:`「${word}」は「${reading}」と読む。`,seconds:20});
-          add("kanji-context","小4・5｜文章の漢字",`${sentence.replace(word,"【"+reading+"】")}\n【　】に合う漢字は？`,word,words.map(w=>w[0]),{feedback:`この文では「${word}（${reading}）」を使う。`,seconds:25});
+          add("reading","小4｜ことばの探検",`${sentence}\n「${word}」の読み方は？`,reading,words.map(w=>w[1]),{feedback:`「${word}」は「${reading}」と読む。`,seconds:20});
+          add("kanji-context","小4｜文章の漢字",`${sentence.replace(word,"【"+reading+"】")}\n【　】に合う漢字は？`,word,words.map(w=>w[0]),{feedback:`この文では「${word}（${reading}）」を使う。`,seconds:25});
         }
         const phrases=[
           ["石の上にも三年","辛くても根気よく続ければ成果が出る","石に三年間座ると宝が出る","三年たつと必ず勝てる","石は三年で消える"],
@@ -1913,7 +1913,7 @@
           ["足を運ぶ","わざわざその場所へ行く","くつを運ぶ","手伝いを断る","走る練習をする"],
           ["雨降って地固まる","もめごとの後に前よりよい関係になる","雨の日は地面が必ず固い","雨がやむとけんかになる","失敗したら何もしない"]
         ];
-        for(const [phrase,answer,...pool]of phrases)add("idiom","小4・5｜ことわざの扉",`「${phrase}」の意味に合うものは？`,answer,pool,{seconds:30,feedback:`「${phrase}」は「${answer}」という意味。`});
+        for(const [phrase,answer,...pool]of phrases)add("idiom","小4｜ことわざの扉",`「${phrase}」の意味に合うものは？`,answer,pool,{seconds:30,feedback:`「${phrase}」は「${answer}」という意味。`});
         const reading=[
           ["ミナは地図を見た。北の橋は修理中、東の道は通れる。ミナは東へ歩いた。なぜ？","通れる道を選んだから","東に宝があると聞いたから","北がきらいだから","地図をなくしたから"],
           ["ユウは重い荷物を持つ友達を見て、「半分持とうか」と声をかけた。ユウの気持ちは？","友達の負担を軽くしたい","荷物を全部もらいたい","友達を急がせたい","自分だけ先に行きたい"],
@@ -1926,7 +1926,7 @@
           ["「大きな木の下で、小さなキツネが眠っている。」主語はどれ？","小さなキツネが","大きな木の下で","眠っている","木の下"],
           ["「探検隊は、ゆっくり橋を渡った。」動きをくわしく説明する言葉は？","ゆっくり","探検隊","橋","渡った"]
         ];
-        for(const [prompt,answer,...pool]of reading)add("comprehension","小4・5｜物語の探偵",prompt,answer,pool,{seconds:40,feedback:`文に書かれた手がかりから、${answer}。`});
+        for(const [prompt,answer,...pool]of reading)add("comprehension","小4｜物語の探偵",prompt,answer,pool,{seconds:40,feedback:`文に書かれた手がかりから、${answer}。`});
         // Append new catalogue entries here so every previously saved ID stays stable.
         const villageCases=[
           ["村の受付にアオ、ベニ、チカが並んだ。アオはベニより前、チカはベニより後にいる。先頭はだれ？","アオ","ベニ","チカ","この条件では決まらない","アオ→ベニ→チカの順になる。前後の条件を一本につなごう。"],
@@ -1950,8 +1950,18 @@
           ["「軽い木箱を運ぶキツネ」を読んだ。「軽い」が直接説明している言葉は？","木箱","キツネ","運ぶ","読む人","軽いのは木箱。どの言葉の性質を説明しているかを確かめよう。"],
           ["村の泉の水をむだにしないため、みんなで水くみの時間を決め、使った量も記録した。この文章の題名として最も合うのは？","泉の水を大切に使う工夫","村で一番速い走り方","記録をやめた村人たち","使えば使うほど増える水","時間を決めることと量を記録することは、水を大切に使うための工夫。"]
         ];
-        for(const [prompt,answer,a,b,c,feedback]of villageCases)add("village-reasoning","小4・5｜村の事件とことば",prompt,answer,[a,b,c],{seconds:40,feedback});
-        return bank.filter(q=>new Set((q.pool||[]).filter(x=>x!==q.answer)).size>=3);
+        for(const [prompt,answer,a,b,c,feedback]of villageCases)add("village-reasoning","小4｜村の事件とことば",prompt,answer,[a,b,c],{seconds:40,feedback});
+        // Grade-four additions are appended without renumbering the older catalogue.
+        for(let d=4;d<=9;d++)for(let a=1;a<d;a++)for(let b=1;b<d;b++)if(a+b>d)add("fraction-cross-one","小4｜1をこえる分数",`${a}/${d} ＋ ${b}/${d} ＝？（分母は${d}のまま）`,`${a+b}/${d}`,[`${a+b-1}/${d}`,`${a+b+1}/${d}`,`${a+b}/${d*2}`],{feedback:`${d}分の1が${a}個と${b}個。合わせて${a+b}個だから ${a+b}/${d}。`,seconds:25});
+        for(let d=4;d<=9;d++)for(let a=d+1;a<d*2;a++)for(let b=1;b<d;b++)add("fraction-subtract","小4｜分数の引き算",`${a}/${d} − ${b}/${d} ＝？（分母は${d}のまま）`,`${a-b}/${d}`,[`${a-b+1}/${d}`,`${a+b}/${d}`,`${a-b}/${d*2}`],{feedback:`同じ大きさの分数なので、分母は${d}のまま。分子を引いて ${a-b}/${d}。`,seconds:25});
+        const gradeFourFamilies=new Set(["order","brackets","division","decimal","decimal-sub","area","fraction","pattern","units","chart","difference-chart","shopping","reading","kanji-context","idiom","comprehension","village-reasoning","fraction-cross-one","fraction-subtract"]),gradeFourWords=new Set(words.slice(0,30).map(w=>w[0])),gradeFourReadings=new Set(words.slice(0,30).map(w=>w[1]));
+        return bank.filter(q=>gradeFourFamilies.has(q.family)&&(q.family!=="reading"||gradeFourReadings.has(q.answer))&&(q.family!=="kanji-context"||gradeFourWords.has(q.answer))&&!(q.family==="village-reasoning"&&q.prompt.includes("敬う"))).map(q=>{
+          const result={...q,grade:4,label:q.label.replace("小4・5","小4")};
+          if(q.family==="reading")result.pool=words.slice(0,30).map(w=>w[1]);
+          if(q.family==="kanji-context")result.pool=words.slice(0,30).map(w=>w[0]);
+          if(q.family==="fraction"){const [a,d,b]=q.prompt.match(/\d+/g).map(Number);result.prompt=`${a}/${d} ＋ ${b}/${d} ＝？（分母は${d}のまま）`;result.answer=`${a+b}/${d}`;result.pool=[`${a+b+1}/${d}`,`${Math.max(0,a+b-1)}/${d}`,`${a+b}/${d*2}`];result.feedback=`分母は${d}のまま、分子をたす。${a}＋${b}＝${a+b}なので ${a+b}/${d}。`;}
+          const gradeFourText=text=>text.replaceAll("品質","品物のよさ").replaceAll("利益","よい結果").replaceAll("状況","様子").replaceAll("条件","きまり");result.prompt=gradeFourText(result.prompt);result.answer=gradeFourText(result.answer);result.pool=result.pool.map(gradeFourText);result.feedback=gradeFourText(result.feedback);return result;
+        }).filter(q=>new Set((q.pool||[]).filter(x=>x!==q.answer)).size>=3);
       }
 
       function restoreQuizHistory(saved){
