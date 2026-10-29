@@ -256,7 +256,7 @@
 <body>
   <span class="g45-version">3.1-4｜小学4年</span>
   <main class="app" id="app">
-    <canvas id="game" tabindex="0" aria-label="にじいろ村とふしぎな森。矢印キーまたはWASDで移動します。"></canvas>
+    <canvas id="game" tabindex="0" aria-label="にじいろ村とふしぎな森。行きたい場所や人をタッチして移動・会話します。"></canvas>
     <div class="hud">
       <div class="hud-badge"><span id="hud-location">🌈 にじいろ村</span><small id="hud-crystals">水晶 0/3</small><small id="hud-fragments">地図のかけら 0/3</small></div>
     </div>
@@ -269,7 +269,7 @@
       <div class="dialog-box">
         <p class="dialog-name" id="dialog-name"></p>
         <p class="dialog-text" id="dialog-text"></p>
-        <p class="dialog-next" id="dialog-next">Enter / Space　つづける　 ·　Esc とじる</p>
+        <p class="dialog-next" id="dialog-next">タッチして つづける</p>
       </div>
     </section>
     <section class="menu-shade" id="menu" hidden aria-label="メニュー">
@@ -1223,8 +1223,8 @@
         dialogName.textContent = dialogState.name;
         dialogText.textContent = dialogState.lines[dialogState.index];
         dialogNext.textContent = dialogState.index + 1 < dialogState.lines.length
-          ? "Enter / Space　つづける　 ·　Esc とじる"
-          : "Enter / Space　とじる　 ·　Esc とじる";
+          ? "タッチして つづける"
+          : "タッチして とじる";
       }
 
       function closeDialog() {
