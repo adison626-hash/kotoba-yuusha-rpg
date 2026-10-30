@@ -1959,11 +1959,17 @@
         // Grade-four additions are appended without renumbering the older catalogue.
         for(let d=4;d<=9;d++)for(let a=1;a<d;a++)for(let b=1;b<d;b++)if(a+b>d)add("fraction-cross-one","小4｜1をこえる分数",`${a}/${d} ＋ ${b}/${d} ＝？（分母は${d}のまま）`,`${a+b}/${d}`,[`${a+b-1}/${d}`,`${a+b+1}/${d}`,`${a+b}/${d*2}`],{feedback:`${d}分の1が${a}個と${b}個。合わせて${a+b}個だから ${a+b}/${d}。`,seconds:25});
         for(let d=4;d<=9;d++)for(let a=d+1;a<d*2;a++)for(let b=1;b<d;b++)add("fraction-subtract","小4｜分数の引き算",`${a}/${d} − ${b}/${d} ＝？（分母は${d}のまま）`,`${a-b}/${d}`,[`${a-b+1}/${d}`,`${a+b}/${d}`,`${a-b}/${d*2}`],{feedback:`同じ大きさの分数なので、分母は${d}のまま。分子を引いて ${a-b}/${d}。`,seconds:25});
-        const gradeFourFamilies=new Set(["order","brackets","division","decimal","decimal-sub","area","fraction","pattern","units","chart","difference-chart","shopping","reading","kanji-context","idiom","comprehension","village-reasoning","fraction-cross-one","fraction-subtract"]),gradeFourWords=new Set(words.slice(0,30).map(w=>w[0])),gradeFourReadings=new Set(words.slice(0,30).map(w=>w[1]));
+        // The 2020 allocation moved these former grade-four characters to grades five/six.
+        const movedBeyondGradeFour=new Set("囲紀喜救型航告殺士史象賞貯停堂得毒費粉脈歴胃腸");
+        const currentFourReplacements=[["機械","きかい","水をくみ上げる機械を動かす。"],["灯台","とうだい","海辺の灯台が船に道を知らせる。"],["清流","せいりゅう","森を流れる清流に小魚がいる。"]];
+        const gradeFourWordRows=[...words.slice(0,30).filter(([word])=>![...word].some(char=>movedBeyondGradeFour.has(char))),...currentFourReplacements];
+        // Append replacements to preserve all surviving previously saved question IDs.
+        for(const [word,reading,sentence]of currentFourReplacements){add("reading","小4｜ことばの探検",`${sentence}\n「${word}」の読み方は？`,reading,gradeFourWordRows.map(w=>w[1]),{feedback:`「${word}」は「${reading}」と読む。`,seconds:20});add("kanji-context","小4｜文章の漢字",`${sentence.replace(word,"【"+reading+"】")}\n【　】に合う漢字は？`,word,gradeFourWordRows.map(w=>w[0]),{feedback:`この文では「${word}（${reading}）」を使う。`,seconds:25});}
+        const gradeFourFamilies=new Set(["order","brackets","division","decimal","decimal-sub","area","fraction","pattern","units","chart","difference-chart","shopping","reading","kanji-context","idiom","comprehension","village-reasoning","fraction-cross-one","fraction-subtract"]),gradeFourWords=new Set(gradeFourWordRows.map(w=>w[0])),gradeFourReadings=new Set(gradeFourWordRows.map(w=>w[1]));
         return bank.filter(q=>gradeFourFamilies.has(q.family)&&(q.family!=="reading"||gradeFourReadings.has(q.answer))&&(q.family!=="kanji-context"||gradeFourWords.has(q.answer))&&!(q.family==="village-reasoning"&&q.prompt.includes("敬う"))).map(q=>{
           const result={...q,grade:4,label:q.label.replace("小4・5","小4")};
-          if(q.family==="reading")result.pool=words.slice(0,30).map(w=>w[1]);
-          if(q.family==="kanji-context")result.pool=words.slice(0,30).map(w=>w[0]);
+          if(q.family==="reading")result.pool=gradeFourWordRows.map(w=>w[1]);
+          if(q.family==="kanji-context")result.pool=gradeFourWordRows.map(w=>w[0]);
           if(q.family==="fraction"){const [a,d,b]=q.prompt.match(/\d+/g).map(Number);result.prompt=`${a}/${d} ＋ ${b}/${d} ＝？（分母は${d}のまま）`;result.answer=`${a+b}/${d}`;result.pool=[`${a+b+1}/${d}`,`${Math.max(0,a+b-1)}/${d}`,`${a+b}/${d*2}`];result.feedback=`分母は${d}のまま、分子をたす。${a}＋${b}＝${a+b}なので ${a+b}/${d}。`;}
           const gradeFourText=text=>text.replaceAll("品質","品物のよさ").replaceAll("利益","よい結果").replaceAll("状況","様子").replaceAll("条件","きまり");result.prompt=gradeFourText(result.prompt);result.answer=gradeFourText(result.answer);result.pool=result.pool.map(gradeFourText);result.feedback=gradeFourText(result.feedback);return result;
         }).filter(q=>new Set((q.pool||[]).filter(x=>x!==q.answer)).size>=3);
