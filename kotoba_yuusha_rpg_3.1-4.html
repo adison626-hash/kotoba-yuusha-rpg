@@ -2154,7 +2154,7 @@
 
       function jrLightsHint(lights){if(!lights)return-1;const initial=lights.reduce((a,v,i)=>a|(v?1<<i:0),0);if(initial===511)return-1;const q=[{s:initial,first:-1}],seen=new Set([initial]);for(let n=0;n<q.length;n++)for(let i=0;i<9;i++){let s=q[n].s;for(const j of[i,i%3>0?i-1:-1,i%3<2?i+1:-1,i>=3?i-3:-1,i<6?i+3:-1])if(j>=0)s^=1<<j;const first=q[n].first<0?i:q[n].first;if(s===511)return first;if(!seen.has(s)){seen.add(s);q.push({s,first});}}return-1;}
 
-      function jrUpdateMission(time){const run=jrRun;if(!run||run.finished)return;
+      function jrUpdateMission(time){const run=jrRun;if(document.visibilityState==="hidden"||!run||run.finished)return;
         if(run.id==="memory"&&run.hideAt&&time>=run.hideAt){run.hideAt=0;run.flips=[];jrDrawMemory();jrMemoryStatus("もういちど さがそう！");}
         if(run.id==="simon"&&run.showing){const elapsed=time-run.showAt,index=elapsed<0?-1:Math.floor(elapsed/650),flash=index<run.pattern.length&&elapsed>=0&&elapsed%650<400?run.pattern[index]:-1;if(flash!==run.lastFlash){document.querySelectorAll('.jr-simon button').forEach((b,i)=>b.classList.toggle('lit',i===flash));run.lastFlash=flash;}if(elapsed>=run.pattern.length*650){run.showing=false;document.getElementById("jr-status").textContent=`ラウンド ${run.round}/3。いまの じゅんばんで タッチ！`;}}
         if(run.id==="shoot"){const remaining=Math.max(0,90-(time-run.start)/1000),canvas=document.getElementById("jr-mini-canvas");if(!canvas)return;const c=canvas.getContext("2d"),t=(time-run.start)/1000;c.fillStyle="#c9e3aa";c.fillRect(0,0,660,300);c.fillStyle="#a8c68a";c.fillRect(0,245,660,55);c.textAlign="center";c.font="bold 24px sans-serif";for(const p of run.targets){const x=p.x+Math.sin(t*1.1+p.phase)*18,y=p.y+Math.sin(t*1.7+p.phase)*15;c.fillStyle="#fff7d6";c.strokeStyle="#6a805d";c.lineWidth=3;c.beginPath();c.arc(x,y,32,0,Math.PI*2);c.fill();c.stroke();c.fillStyle="#35574c";c.fillText(p.value,x,y+8);}if(run.shot&&time-run.shot.at<240){c.strokeStyle="#c77b48";c.beginPath();c.arc(run.shot.x,run.shot.y,38,0,Math.PI*2);c.stroke();}document.getElementById("jr-status").textContent=`${run.prompt}　あと ${remaining.toFixed(1)}びょう　${run.score}/7 ヒット`;if(remaining<=0){run.finished=true;document.getElementById("jr-status").textContent="じかんに なったよ。もういちど ちょうせんしよう！";}}
@@ -3058,16 +3058,21 @@
       adventureCanvas.addEventListener("click",handleAdventurePointer);
       document.getElementById("adventure-fullscreen").addEventListener("click",async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await app.requestFullscreen();}catch(error){adventureNotice("ゲームは がめんいっぱいに ひろがっているよ。");}});
       // Keep a timed question fair when a phone switches apps or hides this tab.
-      let grade4PausedBattle=null;
+      let grade4PausedBattle=null,grade4PausedMission=null;
       document.addEventListener("visibilitychange",()=>{
         const battle=adventureBattle;
         if(document.visibilityState==="hidden"){
           if(!grade4PausedBattle&&battle&&["attack","defend"].includes(battle.phase))grade4PausedBattle={battle,question:battle.question,phase:battle.phase,at:performance.now()};
+          if(!grade4PausedMission&&jrRun&&!jrRun.finished)grade4PausedMission={run:jrRun,at:performance.now()};
           return;
         }
         if(grade4PausedBattle){
           const paused=grade4PausedBattle;grade4PausedBattle=null;
           if(battle===paused.battle&&battle.question===paused.question&&battle.phase===paused.phase)battle.deadline+=Math.max(0,performance.now()-paused.at);
+        }
+        if(grade4PausedMission){
+          const paused=grade4PausedMission;grade4PausedMission=null;
+          if(jrRun===paused.run&&!jrRun.finished){const gap=Math.max(0,performance.now()-paused.at);if(Number.isFinite(jrRun.start))jrRun.start+=gap;for(const key of["showAt","hideAt"])if(Number.isFinite(jrRun[key])&&jrRun[key]>0)jrRun[key]+=gap;}
         }
       });
 
